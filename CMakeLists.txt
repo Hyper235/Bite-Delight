@@ -14,7 +14,9 @@ project(${MAIN_PROJECT_NAME})
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
-
+#
+include_directories(${CMAKE_SOURCE_DIR}/include)
+#
 include(cmake/Options.cmake)
 include(cmake/CompilerFlags.cmake)
 include(cmake/CopyHelper.cmake)
@@ -50,6 +52,11 @@ include(cmake/CopyHelper.cmake)
 # NOTE: update executable name in .github/workflows/cmake.yml:25 when changing name here
 add_executable(${MAIN_EXECUTABLE_NAME}
     main.cpp
+        src/FoodItem.cpp
+        src/Player.cpp
+        src/Order.cpp
+        src/Functions.cpp
+        src/Customer.cpp
 )
 
 # NOTE: Add all defined targets (e.g. executables, libraries, etc. )
