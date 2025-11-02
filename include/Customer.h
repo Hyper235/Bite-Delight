@@ -16,7 +16,7 @@ private:
     static Order generateRandomOrder(const std::vector<FoodItem>& menu);
     static std::string generateRandomName();
 public:
-    Customer(const std::vector<FoodItem>& m);
+    explicit Customer(const std::vector<FoodItem>& m);
     friend std::ostream& operator<<(std::ostream& os, const Customer& c);
     ~Customer(){};
     Customer(const Customer& alt);

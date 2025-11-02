@@ -41,19 +41,27 @@ bool Order::hasExpired() const {
 
     return elapsed > this->maxDuration;
 }
-
 std::ostream& operator<<(std::ostream& os, const Order& o) {
     std::time_t t = std::chrono::system_clock::to_time_t(o.timestamp);
     std::tm tm = *std::localtime(&t);
 
-    std::ostringstream oss;
-    oss << std::put_time(&tm, "%H:%M:%S");
-    if (o.difficulty == Dif::EASY)os<<"EASY\n";
-    else if (o.difficulty == Dif::MEDIUM)os<<"MEDIUM\n";
-    else os<<"\nHARD\n";
-    os << "Order [" << o.id <<" | "<<" ( Timestamp: "<<oss.str()<<" Max Time: "<<o.maxDuration.count()<<" ) " << "] " << o.calc() << " RON\n";
+    char buffer[9]; // HH:MM:SS
+    std::strftime(buffer, sizeof(buffer), "%H:%M:%S", &tm);
+
+    // Difficultate
+    if (o.difficulty == Dif::EASY) os << "EASY\n";
+    else if (o.difficulty == Dif::MEDIUM) os << "MEDIUM\n";
+    else os << "HARD\n";
+
+    // Info comanda
+    os << "Order [" << o.id
+       << " | (Timestamp: " << buffer
+       << " Max Time: " << o.maxDuration.count() << "s)] "
+       << o.calc() << " RON\n";
+
     os << "Contents:\n";
-    for (const FoodItem& it: o.items)
-        os << it;
+    for (const FoodItem& it : o.items)
+        os << it << "\n";
+
     return os;
 }

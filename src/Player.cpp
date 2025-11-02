@@ -11,6 +11,10 @@ Player::Player(const std::string &n, float balance): name(n), balance(balance){}
 // <<
 std::ostream& operator<<(std::ostream& os, const Player& p) {
     std::queue<Order> q = p.orders;
+    while(!q.empty()) {
+        os<<q.front();
+        q.pop();
+    }
     return os;
 }
 

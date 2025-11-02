@@ -20,7 +20,7 @@ public:
     FoodItem(unsigned int id, const std::string& name, float price, FoodType type); // constructor cu parametri
     FoodItem(const FoodItem& item); // copy constructor
     //getteri
-    std::string getName() const { return name;}
+    const std::string& getName() const { return name; }
     float getPrice() const { return price; }
     FoodType getType() const { return type;}
     //setteri
