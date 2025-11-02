@@ -1,21 +1,74 @@
 #include <iostream>
-//include extern
-#include <regex>
-#include "include/FoodItem.h"
-#include "include/Player.h"
-#include "include/Functions.h"
-#include "include/Customer.h"
+#include <vector>
+#include <thread> // pentru sleep
+#include "FoodItem.h"
+#include "Order.h"
+#include "Player.h"
+#include "Customer.h"
 
 int main() {
-//  define fooditems
-    std::vector<FoodItem> menu = {
-        FoodItem(1, "Pizza", 10.5f, FoodType::FOOD),
-        FoodItem(2, "Burger", 8.0f, FoodType::FOOD),
-        FoodItem(3, "Fries", 3.5f, FoodType::FOOD),
-        FoodItem(4, "Soda", 2.0f,FoodType::DRINK)
-    };
+    std::cout << "=== FoodItem Tests ===\n";
+
+    // FoodItem-uri
+    FoodItem pizza(1, "Pizza", 25.0f, FoodType::FOOD);
+    FoodItem burger(2, "Burger", 15.0f, FoodType::FOOD);
+    FoodItem cola(3, "Cola", 5.0f, FoodType::DRINK);
+
+    FoodItem defaultItem;
+    FoodItem pizzaCopy(pizza);
+
+    std::cout << "Default item: " << defaultItem << "\n";
+    std::cout << "Pizza: " << pizza << "\n";
+    std::cout << "Pizza Copy: " << pizzaCopy << "\n";
+
+    pizzaCopy.setName("Pizza Margherita");
+    pizzaCopy.setPrice(27.5f);
+
+    std::cout << "Updated Pizza Copy Name: " << pizzaCopy.getName() << "\n";
+    std::cout << "Updated Pizza Copy Price: " << pizzaCopy.getPrice() << "\n";
+    std::cout << "Pizza type: " << (pizza.getType() == FoodType::FOOD ? "FOOD" : "DRINK") << "\n";
+
+    std::vector<FoodItem> menu = {pizza, burger, cola};
+
+    // ===== Order Tests =====
+    std::cout << "\n=== Order Tests ===\n";
+    Order order1; // implicit
+    order1.addItemToOrder(pizza);
+    order1.addItemToOrder(cola);
+
+    Order order2(2, Dif::MEDIUM, 90, {burger, cola});
+
+    std::cout << "Order1:\n" << order1 << "\n";
+    std::cout << "Order2:\n" << order2 << "\n";
+
+    std::cout << "Order1 total: " << order1.calc() << " RON\n";
+    std::cout << "Order2 total: " << order2.calc() << " RON\n";
+
+    order1.setDifficulty(Dif::HARD);
+    order1.setMaxDuration(120);
+    std::cout << "Order1 after update:\n" << order1 << "\n";
+    std::this_thread::sleep_for(std::chrono::seconds(2LL));
+    std::cout << "Order1 expired? " << (order1.hasExpired() ? "Yes" : "No") << "\n";
+
+    // ===== Player Tests =====
+    std::cout << "\n=== Player Tests ===\n";
     Player player("Catalin", 100.0f);
+
+    player.setBalance(200.0f);
+    player.addBalance(50.0f);
+    std::cout << "Player balance: " << player.getBalance() << "\n";
+
+    player.addOrder(order1);
+    player.addOrder(order2);
+    player.placeOrder(order1);
+    player.finishOrder();
+
+    std::cout << "Player info:\n" << player << "\n";
+
+    // ===== Customer Tests =====
+    std::cout << "\n=== Customer Tests ===\n";
     Customer customer(menu);
-    std::cout<<customer;
+    std::cout << "Random Customer:\n" << customer << "\n";
+
     return 0;
 }
