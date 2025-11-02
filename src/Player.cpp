@@ -3,7 +3,6 @@
 //
 #include "../include/Player.h"
 #include "../include/Order.h"
-#include "../include/FoodItem.h"
 #include <queue>
 //implicit
 Player::Player():name("NULL"), balance(0.0f){}

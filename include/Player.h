@@ -7,7 +7,6 @@
 #include <string>
 #include <queue>
 #include "Order.h"
-#include <string>
 class Player {
 protected:
      std::string name;
@@ -21,8 +20,8 @@ public:
      float getBalance() const{return balance;}
      //setter
      void setBalance(float b){balance=b;}
-     void addOrder(Order o){orders.push(o);}
-     void setName(std::string n){name=n;}
+     void addOrder(const Order& o){orders.push(o);}
+     void setName(const std::string& n){name=n;}
      //adder
      void addBalance(float b){balance+=b;}
      // <<

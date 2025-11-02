@@ -13,8 +13,8 @@ class Customer {
 private:
     std::string Name;
     Order order;
-    Order generateRandomOrder(const std::vector<FoodItem>& menu);
-    std::string generateRandomName();
+    static Order generateRandomOrder(const std::vector<FoodItem>& menu);
+    static std::string generateRandomName();
 public:
     Customer(const std::vector<FoodItem>& m);
     friend std::ostream& operator<<(std::ostream& os, const Customer& c);

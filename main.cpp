@@ -1,11 +1,7 @@
 #include <iostream>
-#include <array>
-
 //include extern
-#include <bits/regex_constants.h>
-#include <queue>
+#include <regex>
 #include "include/FoodItem.h"
-#include "include/Order.h"
 #include "include/Player.h"
 #include "include/Functions.h"
 #include "include/Customer.h"

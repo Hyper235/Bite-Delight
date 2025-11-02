@@ -4,12 +4,25 @@
 #include "../include/Order.h"
 //implicit
 unsigned int Order::nextId = 1;
-Order::Order() : id(nextId++){}
 //parametric
-Order::Order(unsigned int i,unsigned int maxSeconds)
-    : id(i),
+
+Order::Order()
+    : id(nextId++),
+      difficulty(Dif::EASY),
       timestamp(std::chrono::system_clock::now()),
-      maxDuration(std::chrono::seconds(maxSeconds)) {}
+      maxDuration(static_cast<std::chrono::seconds::rep>(0))
+{}
+Order::Order(unsigned int i,
+             Dif diff,
+             unsigned int maxSec,
+             const std::vector<FoodItem>& itemsList)
+    : id(i),
+      difficulty(diff),
+      items(itemsList),
+      timestamp(std::chrono::system_clock::now()),
+      maxDuration(static_cast<std::chrono::seconds::rep>(maxSec))
+{}
+
 //
 void Order::addItemToOrder(const FoodItem &it) {
     items.push_back(it);

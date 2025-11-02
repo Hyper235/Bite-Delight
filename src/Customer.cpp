@@ -6,41 +6,41 @@
 #include <random>
 
 Order Customer::generateRandomOrder(const std::vector<FoodItem>& menu) {
-    Order order;
-    std::srand(std::time(nullptr)); // inițializează seed-ul o singură dată, ideal NU aici
+    Order ord;
+    std::srand(std::time(nullptr)); 
     int random = std::rand() % 100 + 1;
 
     if (random <= 30) {
-        order.setDifficulty(Dif::EASY);
+        ord.setDifficulty(Dif::EASY);
         int count = std::rand() % 2 + 1;
         for (int i = 0; i < count; i++) {
             int rindex = std::rand() % menu.size();
-            order.addItemToOrder(menu[rindex]);
+            ord.addItemToOrder(menu[rindex]);
         }
-        order.setMaxDuration(count * TIME_UNIT);
+        ord.setMaxDuration(count * TIME_UNIT);
     }
     else if (random <= 60) {
-        order.setDifficulty(Dif::MEDIUM);
+        ord.setDifficulty(Dif::MEDIUM);
         int count = std::rand() % 3 + 3;
         for (int i = 0; i < count; i++) {
             int rindex = std::rand() % menu.size();
-            order.addItemToOrder(menu[rindex]);
+            ord.addItemToOrder(menu[rindex]);
         }
-        order.setMaxDuration(count * TIME_UNIT);
+        ord.setMaxDuration(count * TIME_UNIT);
     }
     else {
-        order.setDifficulty(Dif::HARD);
+        ord.setDifficulty(Dif::HARD);
         int count = std::rand() % 4 + 5;
         for (int i = 0; i < count; i++) {
             int rindex = std::rand() % menu.size();
-            order.addItemToOrder(menu[rindex]);
+            ord.addItemToOrder(menu[rindex]);
         }
-        order.setMaxDuration(count * TIME_UNIT);
+        ord.setMaxDuration(count * TIME_UNIT);
     }
-    return order;
+    return ord;
 }
 std::string Customer::generateRandomName() {
-    srand(time(NULL));
+    srand(time(nullptr));
     const std::vector<std::string> names = {
         "Andrei", "Maria", "Ion", "Elena", "Alexandru", "Ioana",
         "Gabriel", "Ana", "Mihai", "Larisa", "Florin", "Diana",
