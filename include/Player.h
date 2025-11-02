@@ -16,7 +16,7 @@ public:
      Player();
      Player(const std::string& n, float balance);
      //getters
-     std::string getName() const{return name;}
+     const std::string& getName() const { return name; }
      float getBalance() const{return balance;}
      //setter
      void setBalance(float b){balance=b;}
