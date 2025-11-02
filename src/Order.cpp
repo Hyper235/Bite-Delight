@@ -6,8 +6,10 @@
 unsigned int Order::nextId = 1;
 Order::Order() : id(nextId++){}
 //parametric
-Order::Order(unsigned int i,unsigned int maxSeconds): id(i), maxDuration(std::chrono::seconds(maxSeconds)),timestamp(std::chrono::system_clock::now()){}
-
+Order::Order(unsigned int i,unsigned int maxSeconds)
+    : id(i),
+      timestamp(std::chrono::system_clock::now()),
+      maxDuration(std::chrono::seconds(maxSeconds)) {}
 //
 void Order::addItemToOrder(const FoodItem &it) {
     items.push_back(it);
