@@ -1,6 +1,6 @@
 ext/** linguist-vendored
 .github/** linguist-generated
-
+*.md linguist-documentation
 
 
 

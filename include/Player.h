@@ -18,6 +18,9 @@ public:
      //getters
      const std::string& getName() const { return name; }
      float getBalance() const{return balance;}
+     [[nodiscard]] size_t getOrderCount() const { return orders.size(); }
+     const std::queue<Order>& getOrders() const {return orders;}
+     std::queue<Order>& getOrders() {return orders;}
      //setter
      void setBalance(float b){balance=b;}
      void addOrder(const Order& o){orders.push(o);}

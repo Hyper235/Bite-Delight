@@ -16,16 +16,31 @@ private:
     static Order generateRandomOrder(const std::vector<FoodItem>& menu);
     static std::string generateRandomName();
 public:
+    //implicit
+    Customer();
+
+    //parametric cu meniu
     explicit Customer(const std::vector<FoodItem>& m);
+
+    //parametric cu toti parametrii
     Customer(const std::string& n, const Order& o);
+
+    //copiere
+    Customer(const Customer& alt);
+
+    //<<
     friend std::ostream& operator<<(std::ostream& os, const Customer& c);
-    ~Customer(){}; //destructor
-    Customer(const Customer& alt);//copiere
-    Customer& operator=(const Customer& other); // =
+
+    //=
+    Customer& operator=(const Customer& other);
+
     //getters
     Order& getOrder() {
         return order;
     }
     const std::string& getName() const {return Name;}
+
+    //destructor
+    ~Customer(){};
 };
 #endif //OOP_CUSTOMER_H

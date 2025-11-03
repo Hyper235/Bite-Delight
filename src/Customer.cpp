@@ -4,7 +4,19 @@
 #include "../include/Customer.h"
 #define TIME_UNIT 30
 #include <random>
+//implicit
+Customer::Customer():Name(generateRandomName()){}
+
+//parametric cu meniu
+Customer::Customer(const std::vector<FoodItem>& m):
+    Name(generateRandomName()),
+    order(generateRandomOrder(m))
+
+{}
+//parametric
 Customer::Customer(const std::string& n, const Order& o): Name(n), order(o) {}
+
+//others
 Order Customer::generateRandomOrder(const std::vector<FoodItem>& menu) {
     Order ord;
     std::srand(std::time(nullptr));
@@ -54,14 +66,13 @@ std::string Customer::generateRandomName() {
     int random = std::rand() % names.size();
     return names[random];
 }
-Customer::Customer(const std::vector<FoodItem>& m):
-    Name(generateRandomName()),
-    order(generateRandomOrder(m))
-
-{}
+//copiere
 Customer::Customer(const Customer& other)
     : Name(other.Name), order(other.order)
 {}
+
+
+//operator =
 Customer& Customer::operator=(const Customer& other) {
     if (this == &other) {
         return *this;
@@ -71,6 +82,7 @@ Customer& Customer::operator=(const Customer& other) {
     return *this;
 
 }
+//<<
 std::ostream& operator<<(std::ostream& os, const Customer& c) {
     os<<"\n Client:"<<c.Name<<"\n";
     os<<"\n Order:"<<c.order;
