@@ -1,11 +1,7 @@
 #include <iostream>
 #include <vector>
-#include <thread> // Necesar pentru sleep_for
-#include <chrono> // Necesar pentru seconds
-#include <cstdlib> // Necesar pentru srand
-#include <ctime>   // Necesar pentru time
-
-// Include-urile tale
+#include <thread>
+#include <chrono>
 #include "FoodItem.h"
 #include "Order.h"
 #include "Player.h"
@@ -86,16 +82,6 @@ void testOrder() {
 
     std::cout << "========================\n\n";
 }
-
-#include <iostream>
-#include <vector>
-#include <thread>
-#include <chrono>
-
-#include "FoodItem.h"
-#include "Order.h"
-#include "Player.h"
-
 void testPlayer() {
     std::cout << "=== Player Tests ===\n";
 
@@ -225,7 +211,7 @@ void testFullScenario() {
 
     std::cout << "\n--- Processing Order ---\n";
 
-    Order& firstOrder = catalin.getOrders().front();
+    const Order& firstOrder = catalin.getOrders().front();
     unsigned int maxTime = firstOrder.getMaxDuration().count();
 
     // We will wait 20% of the max time for a FAST TIP
