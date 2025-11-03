@@ -27,6 +27,5 @@ public:
         return order;
     }
     const std::string& getName() const {return Name;}
-
 };
 #endif //OOP_CUSTOMER_H

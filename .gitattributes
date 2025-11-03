@@ -1,1 +1,8 @@
-ext/** linguist-vendored
+# Ignoră fișierele de configurare și text din statistici
+CMakeLists.txt linguist-generated
+*.md linguist-documentation
+*.txt linguist-documentation
+
+# Forțează fișierele .h să fie C++
+*.h linguist-language=C++
+*.hpp linguist-language=C++
