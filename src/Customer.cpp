@@ -14,7 +14,7 @@ Customer::Customer(const std::vector<FoodItem>& m):
 
 {}
 //parametric
-Customer::Customer(const std::string& n, const Order& o): Name(n), order(o) {}
+Customer::Customer(const std::string& n, const Order o): Name(n), order(o) {}
 
 //others
 Order Customer::generateRandomOrder(const std::vector<FoodItem>& menu) {
@@ -66,12 +66,6 @@ std::string Customer::generateRandomName() {
     int random = std::rand() % names.size();
     return names[random];
 }
-//copiere
-Customer::Customer(const Customer& other)
-    : Name(other.Name), order(other.order)
-{}
-
-
 //operator =
 Customer& Customer::operator=(const Customer& other) {
     if (this == &other) {

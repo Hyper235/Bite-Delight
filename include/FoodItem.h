@@ -19,13 +19,16 @@ public:
     FoodItem();
 
     //parametric
-    FoodItem(unsigned int id, const std::string& name, float price, FoodType type);
+    FoodItem(unsigned int id, const std::string name, float price, FoodType type);
 
     //copy constructor
     FoodItem(const FoodItem& item);
 
+    //copy
+    FoodItem::FoodItem(const FoodItem& item) = default;
     //=
-    FoodItem& operator=(const FoodItem& item) = default;
+    FoodItem::FoodItem& operator=(const FoodItem& item) = default;
+
 
     //getteri
     const std::string& getName() const { return name; }

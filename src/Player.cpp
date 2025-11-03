@@ -7,7 +7,7 @@
 //implicit
 Player::Player():name("NULL"), balance(0.0f){}
 //parametric
-Player::Player(const std::string &n, float balance): name(n), balance(balance){}
+Player::Player(std::string& n, float balance): name(n), balance(balance){}
 // <<
 std::ostream& operator<<(std::ostream& os, const Player& p) {
     os << "Player: " << p.getName() << "\n";
