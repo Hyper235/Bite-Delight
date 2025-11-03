@@ -4,10 +4,10 @@
 #include "../include/Customer.h"
 #define TIME_UNIT 30
 #include <random>
-
+Customer::Customer(const std::string& n, const Order& o): Name(n), order(o) {}
 Order Customer::generateRandomOrder(const std::vector<FoodItem>& menu) {
     Order ord;
-    std::srand(std::time(nullptr)); 
+    std::srand(std::time(nullptr));
     int random = std::rand() % 100 + 1;
 
     if (random <= 30) {

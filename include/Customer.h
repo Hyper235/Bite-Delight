@@ -17,10 +17,16 @@ private:
     static std::string generateRandomName();
 public:
     explicit Customer(const std::vector<FoodItem>& m);
+    Customer(const std::string& n, const Order& o);
     friend std::ostream& operator<<(std::ostream& os, const Customer& c);
-    ~Customer(){};
-    Customer(const Customer& alt);
-    Customer& operator=(const Customer& other);
+    ~Customer(){}; //destructor
+    Customer(const Customer& alt);//copiere
+    Customer& operator=(const Customer& other); // =
+    //getters
+    Order& getOrder() {
+        return order;
+    }
+    const std::string& getName() const {return Name;}
 
 };
 #endif //OOP_CUSTOMER_H

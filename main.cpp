@@ -68,7 +68,18 @@ int main() {
     // ===== Customer Tests =====
     std::cout << "\n=== Customer Tests ===\n";
     Customer customer(menu);
+    std::cout<<customer.getName();
     std::cout << "Random Customer:\n" << customer << "\n";
+    std::cout << "[Test] Se apeleaza constructorul de copiere (c2 = customer):\n";
+    Customer customer2 = customer;
+    customer2.getOrder().setDifficulty(Dif::EASY);
+    std::cout << "Originalul (c1):\n" << customer << "\n";
+    std::cout << "Copia (c2) (ar trebui sa aiba dificultate EASY):\n" << customer2 << "\n";
 
+    std::cout << "[Test] Se apeleaza operatorul de atribuire (c3 = c1):\n";
+    Customer customer3(menu);
+    std::cout << "c3 INAINTE de atribuire:\n" << customer3 << "\n";
+    customer3 = customer;
+    std::cout << "c3 DUPA atribuire (arata ca originalul):\n" << customer3 << "\n";
     return 0;
 }
