@@ -8,15 +8,18 @@ unsigned int Order::nextId = 1;
 
 Order::Order()
     : id(nextId++),
+      tips(0.0f),
       difficulty(Dif::EASY),
       timestamp(std::chrono::system_clock::now()),
       maxDuration(static_cast<std::chrono::seconds::rep>(0))
 {}
 Order::Order(unsigned int i,
+             float tipsAmount,
              Dif diff,
              unsigned int maxSec,
              const std::vector<FoodItem>& itemsList)
     : id(i),
+      tips(tipsAmount),
       difficulty(diff),
       items(itemsList),
       timestamp(std::chrono::system_clock::now()),
@@ -32,6 +35,8 @@ float Order::calc() const {
     for(const FoodItem& it: items) {
         total+=it.getPrice();
     }
+    if (this->difficulty == Dif::HARD)total*=1.5f;
+    else if (this->difficulty == Dif::MEDIUM)total*=1.3f;
     return total;
 }
 bool Order::hasExpired() const {
@@ -65,3 +70,7 @@ std::ostream& operator<<(std::ostream& os, const Order& o) {
 
     return os;
 }
+void Order::resetIDs() {
+    Order::nextId = 1;
+}
+

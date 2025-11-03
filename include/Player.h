@@ -13,8 +13,8 @@ protected:
      float balance;
      std::queue<Order> orders;
 public:
-     Player();
-     Player(const std::string& n, float balance);
+     Player();//constructor implicit
+     Player(const std::string& n, float balance); //parametric
      //getters
      const std::string& getName() const { return name; }
      float getBalance() const{return balance;}

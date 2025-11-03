@@ -1,85 +1,76 @@
 #include <iostream>
 #include <vector>
-#include <thread> // pentru sleep
+#include <thread> // Necesar pentru sleep_for
+#include <chrono> // Necesar pentru seconds
+#include <cstdlib> // Necesar pentru srand
+#include <ctime>   // Necesar pentru time
+
+// Include-urile tale
 #include "FoodItem.h"
 #include "Order.h"
 #include "Player.h"
 #include "Customer.h"
 
+// Presupun că acestea sunt definite în headerele tale
+// enum class FoodType { FOOD, DRINK };
+// enum class Dif {EASY,MEDIUM,HARD};
+
 int main() {
-    std::cout << "=== FoodItem Tests ===\n";
+    // 1. SETUP
+    std::srand(std::time(nullptr));
+    std::cout << "=== Incepere Test Sistem Bacsis ===\n";
 
-    // FoodItem-uri
-    FoodItem pizza(1, "Pizza", 25.0f, FoodType::FOOD);
-    FoodItem burger(2, "Burger", 15.0f, FoodType::FOOD);
-    FoodItem cola(3, "Cola", 5.0f, FoodType::DRINK);
+    // Meniu simplu: un item care costă 100 RON pentru calcul ușor
+    FoodItem pizzaTest(1, "Pizza Scumpa", 100.0f, FoodType::FOOD);
+    std::vector<FoodItem> menu = {pizzaTest};
 
-    FoodItem defaultItem;
-    FoodItem pizzaCopy(pizza);
+    // Player (începe cu 0 RON ca să vedem clar câștigurile)
+    Player player("TestPlayer", 0.0f);
+    std::cout << "Player initial:\n" << player << "\n\n";
 
-    std::cout << "Default item: " << defaultItem << "\n";
-    std::cout << "Pizza: " << pizza << "\n";
-    std::cout << "Pizza Copy: " << pizzaCopy << "\n";
+    // Durata maximă a comenzilor va fi 10 secunde
+    const unsigned int MAX_SEC = 10;
+    // Prag Rapid (20% tip): < 3 sec
+    // Prag Normal (5% tip): 3-8 sec
+    // Prag Lent (0 tip): > 8 sec
 
-    pizzaCopy.setName("Pizza Margherita");
-    pizzaCopy.setPrice(27.5f);
+    // --- TEST 1: BACȘIȘ RAPID (20%) ---
+    std::cout << "--- Test 1: Comanda Rapida (< 3 sec) ---\n";
+    Order orderFast(1,0, Dif::EASY, MAX_SEC, menu);
+    player.addOrder(orderFast);
+    std::cout << "Comanda adaugata. Se asteapta 1 secunda...\n";
+    std::this_thread::sleep_for(std::chrono::seconds(1LL));
 
-    std::cout << "Updated Pizza Copy Name: " << pizzaCopy.getName() << "\n";
-    std::cout << "Updated Pizza Copy Price: " << pizzaCopy.getPrice() << "\n";
-    std::cout << "Pizza type: " << (pizza.getType() == FoodType::FOOD ? "FOOD" : "DRINK") << "\n";
+    player.finishOrder(); // Aici se calculează bacșișul
 
-    std::vector<FoodItem> menu = {pizza, burger, cola};
+    std::cout << "Player dupa comanda 1:\n" << player << "\n";
+    // Balanța așteptată: 100 RON (preț) + 20 RON (20% bacșiș) = 120 RON
 
-    // ===== Order Tests =====
-    std::cout << "\n=== Order Tests ===\n";
-    Order order1; // implicit
-    order1.addItemToOrder(pizza);
-    order1.addItemToOrder(cola);
+    // --- TEST 2: BACȘIȘ NORMAL (5%) ---
+    std::cout << "\n--- Test 2: Comanda Normala (intre 3-8 sec) ---\n";
+    Order orderNormal(2,0, Dif::EASY, MAX_SEC, menu);
+    player.addOrder(orderNormal);
+    std::cout << "Comanda adaugata. Se asteapta 5 secunde...\n";
+    std::this_thread::sleep_for(std::chrono::seconds(5LL));
 
-    Order order2(2, Dif::MEDIUM, 90, {burger, cola});
-
-    std::cout << "Order1:\n" << order1 << "\n";
-    std::cout << "Order2:\n" << order2 << "\n";
-
-    std::cout << "Order1 total: " << order1.calc() << " RON\n";
-    std::cout << "Order2 total: " << order2.calc() << " RON\n";
-
-    order1.setDifficulty(Dif::HARD);
-    order1.setMaxDuration(120);
-    std::cout << "Order1 after update:\n" << order1 << "\n";
-    std::this_thread::sleep_for(std::chrono::seconds(2LL));
-    std::cout << "Order1 expired? " << (order1.hasExpired() ? "Yes" : "No") << "\n";
-
-    // ===== Player Tests =====
-    std::cout << "\n=== Player Tests ===\n";
-    Player player("Catalin", 100.0f);
-
-    player.setBalance(200.0f);
-    player.addBalance(50.0f);
-    std::cout << "Player balance: " << player.getBalance() << "\n";
-
-    player.addOrder(order1);
-    player.addOrder(order2);
-    player.placeOrder(order1);
     player.finishOrder();
 
-    std::cout << "Player info:\n" << player << "\n";
+    std::cout << "Player dupa comanda 2:\n" << player << "\n";
+    // Balanța așteptată: 120 RON (veche) + 100 RON (preț) + 5 RON (5% bacșiș) = 225 RON
 
-    // ===== Customer Tests =====
-    std::cout << "\n=== Customer Tests ===\n";
-    Customer customer(menu);
-    std::cout<<customer.getName();
-    std::cout << "Random Customer:\n" << customer << "\n";
-    std::cout << "[Test] Se apeleaza constructorul de copiere (c2 = customer):\n";
-    Customer customer2 = customer;
-    customer2.getOrder().setDifficulty(Dif::EASY);
-    std::cout << "Originalul (c1):\n" << customer << "\n";
-    std::cout << "Copia (c2) (ar trebui sa aiba dificultate EASY):\n" << customer2 << "\n";
+    // --- TEST 3: FĂRĂ BACȘIȘ (0%) ---
+    std::cout << "\n--- Test 3: Comanda Lenta (> 8 sec) ---\n";
+    Order orderSlow(3,0, Dif::EASY, MAX_SEC, menu);
+    player.addOrder(orderSlow);
+    std::cout << "Comanda adaugata. Se asteapta 9 secunde...\n";
+    std::this_thread::sleep_for(std::chrono::seconds(9LL));
 
-    std::cout << "[Test] Se apeleaza operatorul de atribuire (c3 = c1):\n";
-    Customer customer3(menu);
-    std::cout << "c3 INAINTE de atribuire:\n" << customer3 << "\n";
-    customer3 = customer;
-    std::cout << "c3 DUPA atribuire (arata ca originalul):\n" << customer3 << "\n";
+    player.finishOrder();
+
+    std::cout << "Player dupa comanda 3:\n" << player << "\n";
+    // Balanța așteptată: 225 RON (veche) + 100 RON (preț) + 0 RON (bacșiș) = 325 RON
+
+    std::cout << "\n--- Test finalizat. ---\n";
+
     return 0;
 }

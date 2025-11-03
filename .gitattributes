@@ -1,6 +1,10 @@
 ext/** linguist-vendored
 .github/** linguist-generated
-//c++
+
+
+
+
+
 *.h linguist-language=C++
 *.hpp linguist-language=C++
 *.cpp linguist-language=C++
