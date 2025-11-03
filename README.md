@@ -13,6 +13,10 @@ Am stabilit fundația proiectului prin crearea a patru clase esențiale pentru m
    b) `Order` (`Order.h / Order.cpp`) - Comanda  
    c) `Player` (`Player.h / Player.cpp`) - Jucator/Administrator  
    d) `Customer` (`Customer.h/ Customer.cpp`) - Client  
+   Aceste clase sunt interconectate folosind principiul compunerii (relația "has-a"), asigurând o arhitectură curată, decuplată și o separare clară a responsabilităților:  
+   a) `Player` are o coadă (`std::queue`) de obiecte `Order`.  
+   b) `Customer` are un obiect `Order` (pe care îl generează aleatoriu).  
+   c) `Order` are un vector (`std::vector`) de obiecte `FoodItem`.  
    
 #### 2 ✅)constructori de inițializare cu parametri pentru fiecare clasă  
 Am implementat constructori de inițializare cu parametru pentru toate cele patru clase. Aceștia asigură inițializarea corectă și completă a obiectelor la creare.  
