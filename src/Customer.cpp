@@ -44,7 +44,12 @@ std::string Customer::generateRandomName() {
     const std::vector<std::string> names = {
         "Andrei", "Maria", "Ion", "Elena", "Alexandru", "Ioana",
         "Gabriel", "Ana", "Mihai", "Larisa", "Florin", "Diana",
-        "Cristian", "Raluca", "Stefan", "Adina", "Bogdan", "Camelia"
+        "Cristian", "Raluca", "Stefan", "Adina", "Bogdan", "Camelia",
+        "Vasile", "Roxana", "George", "Mihaela", "Dan", "Sorina",
+        "Radu", "Laura", "Constantin", "Georgiana", "Petru", "Simona",
+        "Adrian", "Monica", "Victor", "Oana", "David", "Bianca",
+        "Matei", "Daniela", "Lucian", "Teodora", "Ciprian", "Nicoleta",
+        "Vlad", "Gabriela", "Tudor", "Andreea", "Darius", "Paula"
     };
     int random = std::rand() % names.size();
     return names[random];
