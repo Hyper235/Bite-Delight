@@ -4,8 +4,9 @@
 
 #ifndef OOP_FUNCTIONS_H
 #define OOP_FUNCTIONS_H
-#include <vector>
-#include "FoodItem.h"
-#include "Order.h"
-Order generateRandomOrder(const std::vector<FoodItem>& menu);
+void testFoodItem();
+void testOrder();
+void testPlayer();
+void testCustomer();
+void testFullScenario();
 #endif //OOP_FUNCTIONS_H

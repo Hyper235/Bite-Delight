@@ -29,7 +29,7 @@ void Order::addItemToOrder(const FoodItem &it) {
     items.push_back(it);
 }
 
-//<
+//<<
 std::ostream& operator<<(std::ostream& os, const Order& o) {
     std::time_t t = std::chrono::system_clock::to_time_t(o.timestamp);
     std::tm tm = *std::localtime(&t);
