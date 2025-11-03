@@ -50,7 +50,7 @@ Am implementat constructori de inițializare cu parametru pentru toate cele patr
 
    Toți getterii, setterii și operatorii <<.  
 
-   Test de Integrare (Scenariu "cu sens"): Funcția testFullScenario() simulează un flux real de joc. Aceasta integrează toate clasele: un Customer aleatoriu își generează comanda, o trimite Player-ului, Player-ul așteaptă un timp simulat (folosind `std::this_thread::sleep_for`) și apoi finalizează comanda, calculând corect bacșișul (tips).  
+   Test de Integrare (Scenariu "cu sens"): Funcția `testFullScenario()` simulează un flux real de joc. Aceasta integrează toate clasele: un Customer aleatoriu își generează comanda, o trimite Player-ului, Player-ul așteaptă un timp simulat (folosind `std::this_thread::sleep_for`) și apoi finalizează comanda, calculând corect bacșișul (tips).  
 
    tastatura.txt: Deoarece proiectul nu necesită citire de la `std::cin` (datele sunt generate procedural sau hardcodate pentru testare), fișierul `tastatura.txt` a fost lăsat gol, conform cerinței.    
 
