@@ -24,6 +24,9 @@ public:
     //copy constructor
     FoodItem(const FoodItem& item);
 
+    //=
+    FoodItem& operator=(const FoodItem& item) = default;
+
     //getteri
     const std::string& getName() const { return name; }
     float getPrice() const { return price; }
