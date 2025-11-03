@@ -8,7 +8,6 @@
 #include <string>
 #include "Order.h"
 #include "FoodItem.h"
-
 class Customer {
 private:
     std::string Name;
@@ -41,6 +40,6 @@ public:
     const std::string& getName() const {return Name;}
 
     //destructor
-    ~Customer(){};
+    ~Customer(){std::cout<<"\nDestructor call: CUSTOMER "<<Name<<"\n";}
 };
 #endif //OOP_CUSTOMER_H
