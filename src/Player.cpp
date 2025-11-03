@@ -50,7 +50,7 @@ void Player::finishOrder() {
     currentOrder.setTips(tipAmount);
 
     this->balance+=tipAmount +basePrice;
-    std::cout << "Player " << getName() << " finished order ID " << currentOrder.getID()<< " in " << elapsed.count() << " seconds, with TIPS: " << tipAmount << "( "<<;
+    std::cout << "Player " << getName() << " finished order ID " << currentOrder.getID()<< " in " << elapsed.count() << " seconds, with TIPS: " << tipAmount << "( Price "<< basePrice<<" )\n" ;
     orders.pop();
 }
 
