@@ -14,7 +14,7 @@ protected:
      std::queue<Order> orders;
 public:
      Player();//constructor implicit
-     Player(std::string& n, float balance); //parametric
+     Player(const std::string& n, float balance); //parametric
      //getters
      const std::string& getName() const { return name; }
      float getBalance() const{return balance;}

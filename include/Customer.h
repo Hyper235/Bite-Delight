@@ -23,10 +23,10 @@ public:
     explicit Customer(const std::vector<FoodItem>& m);
 
     //parametric cu toti parametrii
-    Customer(const std::string& n, const Order o);
+    Customer(const std::string& n, const Order& o);
 
     //copiere
-    Customer(const Customer& alt) = default;
+    Customer(const Customer& alt);
 
     //<<
     friend std::ostream& operator<<(std::ostream& os, const Customer& c);
