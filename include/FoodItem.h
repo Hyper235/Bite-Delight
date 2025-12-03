@@ -6,20 +6,24 @@
 
 #include <string>
 #include <iostream>
+#include <vector>
+#include "Ingredient.h"
 enum class FoodType {UNDEFINED,FOOD, DRINK};
 
 class FoodItem {
 protected:
     unsigned int id;
+    std::vector<Ingredient> recipe;
     std::string name;
     float price;
     FoodType type;
+
 public:
     //implicit
     FoodItem();
 
     //parametric
-    FoodItem(unsigned int id, const std::string& name, float price, FoodType type);
+    FoodItem(unsigned int id,const std::vector<Ingredient>& recipe, const std::string& name, float price, FoodType type);
 
     //copy constructor
     FoodItem(const FoodItem& item);

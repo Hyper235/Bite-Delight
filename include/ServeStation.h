@@ -1,0 +1,20 @@
+//
+// Created by Catalin on 12/3/2025.
+//
+
+#ifndef OOP_SERVESTATION_H
+#define OOP_SERVESTATION_H
+#include "Order.h"
+#include "Player.h"
+#include "WorkStation.h"
+#include "ActionType.h"
+#include "Ingredient.h"
+
+class ServeStation: public WorkStation {
+public:
+    void processAction(ActionType action,
+                           Ingredient* ingredient,
+                           Order& order,
+                           Player& player) override;
+};
+#endif //OOP_SERVESTATION_H

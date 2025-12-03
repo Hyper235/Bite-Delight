@@ -1,13 +1,9 @@
 #include "../include/FoodItem.h"
 
 
-//implicit
-
-FoodItem::FoodItem() : id(0), name("Unknown"), price(0.0f),type(FoodType::UNDEFINED) {}
-
 //parametrii
-FoodItem::FoodItem(unsigned int i, const std::string& n, float p, FoodType t)
-    : id(i), name(n), price(p) , type(t){}
+FoodItem::FoodItem(unsigned int i,const std::vector<Ingredient>& rec, const std::string& n, float p, FoodType t)
+    : id(i),recipe(rec), name(n), price(p) , type(t){}
 
 //copy
 FoodItem::FoodItem(const FoodItem& item)

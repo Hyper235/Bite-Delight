@@ -55,8 +55,13 @@ add_executable(${MAIN_EXECUTABLE_NAME}
         src/FoodItem.cpp
         src/Player.cpp
         src/Order.cpp
-        src/Functions.cpp
         src/Customer.cpp
+        src/Workstation.cpp
+        src/BuildStation.cpp
+        src/GrillStation.cpp
+        src/ServeStation.cpp
+        src/OrderStation.cpp
+        src/Restaurant.cpp
 )
 
 # NOTE: Add all defined targets (e.g. executables, libraries, etc. )
