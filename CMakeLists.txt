@@ -114,4 +114,3 @@ set_target_properties(${MAIN_EXECUTABLE_NAME} PROPERTIES
         VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
 )
 
-ddd
