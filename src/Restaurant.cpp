@@ -30,8 +30,4 @@ void Restaurant::handlePlayerAtStation(std::size_t index,
     std::cout << "Statie curenta: ";
     stations[index]->print(std::cout);
     std::cout << "\n";
-
-    if (auto grill = dynamic_cast<GrillStation*>(stations[index].get())) {
-        std::cout << "[Restaurant] Jucatorul este la GrillStation (downcast reusit).\n";
-    }
 }
