@@ -11,8 +11,8 @@ void BuildStation::printImpl(std::ostream& os) const {
 }
 void BuildStation::processAction([[maybe_unused]]ActionType action,
                            [[maybe_unused]]Ingredient* ingredient,
-                           Order& order,
-                           Player& player){
+                           [[maybe_unused]]Order& order,
+                           [[maybe_unused]]Player& player){
     if (action==ActionType::AddIngredient) {
         switch (*ingredient) {
             case Ingredient::BunBottom:
