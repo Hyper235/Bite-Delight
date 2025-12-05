@@ -7,7 +7,7 @@
 
 enum class ActionType {
     None,
-    PutOnGrill,
+    PutBurgerOnGrill,
     FlipBurger,
     TakeFromGrill,
     PutFriesIntoFryer,

@@ -14,7 +14,12 @@ public:
     ~Restaurant() = default;
     Restaurant(const Restaurant&) = delete;
     Restaurant& operator=(const Restaurant&) = delete;
-    void processOrderThroughStations(Order& order, Player& player);
+    void handlePlayerAtStation(std::size_t index,
+                                           ActionType action,
+                                           Ingredient* ingredient,
+                                           Order& order,
+                                           Player& player);
 };
 
 #endif //OOP_RESTAURANT_H
+
