@@ -5,19 +5,23 @@ cmake_minimum_required(VERSION 3.26)
 set(MAIN_PROJECT_NAME "oop")
 set(MAIN_EXECUTABLE_NAME "${MAIN_PROJECT_NAME}")
 
+
 project(${MAIN_PROJECT_NAME})
+# set(CMAKE_PROJECT_VERSION_MAJOR 0)
+# set(CMAKE_PROJECT_VERSION_MINOR 0)
+# set(CMAKE_PROJECT_VERSION_PATCH 1)
 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-# include .cmake-urile din scheletul de proiect
 include(cmake/Options.cmake)
 include(cmake/CompilerFlags.cmake)
 include(cmake/CopyHelper.cmake)
 
 ###############################################################################
-# external dependencies with FetchContent: SFML 3
+
+# external dependencies with FetchContent
 
 include(FetchContent)
 
@@ -39,20 +43,20 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(SFML)
 
+
 ###############################################################################
-# other external dependencies with find_package
+
+# external dependencies with find_package
 
 find_package(Threads REQUIRED)
-
 if(APPLE)
-    # nothing special here for now
 elseif(UNIX)
     find_package(X11)
 endif()
 
 ###############################################################################
-# executable
 
+# NOTE: update executable name in .github/workflows/cmake.yml:25 when changing name here
 add_executable(${MAIN_EXECUTABLE_NAME}
         main.cpp
         src/FoodItem.cpp
@@ -73,43 +77,55 @@ target_include_directories(${MAIN_EXECUTABLE_NAME}
         ${CMAKE_SOURCE_DIR}/include
 )
 
-# link SFML + Threads
-target_link_libraries(${MAIN_EXECUTABLE_NAME}
-        PRIVATE
-        SFML::Graphics
-        SFML::Window
-        SFML::System
-        Threads::Threads
-)
+target_include_directories(${MAIN_EXECUTABLE_NAME} SYSTEM PRIVATE ${SFML_SOURCE_DIR}/include)
+target_link_directories(${MAIN_EXECUTABLE_NAME} PRIVATE ${SFML_BINARY_DIR}/lib)
+target_link_libraries(${MAIN_EXECUTABLE_NAME} PRIVATE SFML::Graphics SFML::Window SFML::System Threads::Threads)
 
 if(APPLE)
-    # nimic deocamdată
 elseif(UNIX)
     target_link_libraries(${MAIN_EXECUTABLE_NAME} PRIVATE X11)
 endif()
 
-###############################################################################
-# compiler flags / sanitizers
 
 # NOTE: Add all defined targets (e.g. executables, libraries, etc. )
 # NOTE: RUN_SANITIZERS is optional, if it's not present it will default to true
 set_compiler_flags(RUN_SANITIZERS TRUE TARGET_NAMES ${MAIN_EXECUTABLE_NAME})
 # set_compiler_flags(TARGET_NAMES ${MAIN_EXECUTABLE_NAME} ${FOO} ${BAR})
+# where ${FOO} and ${BAR} represent additional executables or libraries
+# you want to compile with the set compiler flags
 
 ###############################################################################
-# install + copiere resurse
 
+# use SYSTEM so cppcheck and clang-tidy do not report warnings from these directories
+# target_include_directories(${MAIN_EXECUTABLE_NAME} SYSTEM PRIVATE ext/<SomeHppLib>/include)
+target_include_directories(${MAIN_EXECUTABLE_NAME} SYSTEM PRIVATE ${SFML_SOURCE_DIR}/include)
+target_link_directories(${MAIN_EXECUTABLE_NAME} PRIVATE ${SFML_BINARY_DIR}/lib)
+target_link_libraries(${MAIN_EXECUTABLE_NAME} PRIVATE SFML::Graphics SFML::Window SFML::System Threads::Threads)
+
+if(APPLE)
+elseif(UNIX)
+    target_link_libraries(${MAIN_EXECUTABLE_NAME} PRIVATE X11)
+endif()
+
+###############################################################################
+
+# copy binaries to "bin" folder; these are uploaded as artifacts on each release
 # DESTINATION_DIR is set as "bin" in cmake/Options.cmake:6
 install(TARGETS ${MAIN_EXECUTABLE_NAME} DESTINATION ${DESTINATION_DIR})
 if(APPLE)
     install(FILES launcher.command DESTINATION ${DESTINATION_DIR})
 endif()
 
+#add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+#        COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/date  $<TARGET_FILE_DIR:${PROJECT_NAME}>/date
+#       COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/fonts $<TARGET_FILE_DIR:${PROJECT_NAME}>/fonts
+#)
+
 copy_files(FILES tastatura.txt COPY_TO_DESTINATION TARGET_NAME ${MAIN_EXECUTABLE_NAME})
 copy_files(DIRECTORY fonts COPY_TO_DESTINATION TARGET_NAME ${MAIN_EXECUTABLE_NAME})
 copy_files(DIRECTORY date COPY_TO_DESTINATION TARGET_NAME ${MAIN_EXECUTABLE_NAME})
-
-# pentru Visual Studio (ignored pe MinGW/CLion, dar nu strică)
+# copy_files(FILES tastatura.txt config.json DIRECTORY images sounds COPY_TO_DESTINATION TARGET_NAME ${MAIN_EXECUTABLE_NAME})
+# copy_files(DIRECTORY images sounds COPY_TO_DESTINATION TARGET_NAME ${MAIN_EXECUTABLE_NAME})
 set_target_properties(${MAIN_EXECUTABLE_NAME} PROPERTIES
         VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
 )
