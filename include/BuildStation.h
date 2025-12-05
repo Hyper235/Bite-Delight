@@ -4,6 +4,7 @@
 
 #ifndef OOP_BUILDSTATION_H
 #define OOP_BUILDSTATION_H
+#include <memory>
 #include "Order.h"
 #include "Player.h"
 #include "WorkStation.h"

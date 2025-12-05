@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "ActionType.h"
 #include "Ingredient.h"
+#include <memory>
 class WorkStation {
 protected:
     std::string name;
@@ -15,6 +16,7 @@ public:
                                Ingredient* ingredient,
                                Order& order,
                                Player& player) = 0;
+
     void print(std::ostream& os) const; //NVI
     virtual std::unique_ptr<WorkStation> clone() const = 0;
 protected:

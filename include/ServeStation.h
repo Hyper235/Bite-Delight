@@ -4,6 +4,7 @@
 
 #ifndef OOP_SERVESTATION_H
 #define OOP_SERVESTATION_H
+#include <memory>
 #include "Order.h"
 #include "Player.h"
 #include "WorkStation.h"

@@ -4,6 +4,7 @@
 
 #ifndef OOP_GRILLSTATION_H
 #define OOP_GRILLSTATION_H
+#include <memory>
 #include "Order.h"
 #include "Player.h"
 #include "WorkStation.h"

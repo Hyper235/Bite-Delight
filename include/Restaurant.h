@@ -5,6 +5,7 @@
 #ifndef OOP_RESTAURANT_H
 #define OOP_RESTAURANT_H
 #include "WorkStation.h"
+#include <memory>
 class Restaurant {
 private:
     std::vector<std::unique_ptr<WorkStation>> stations;
