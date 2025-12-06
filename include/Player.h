@@ -21,15 +21,12 @@ public:
      //getters
      const std::string& getName() const { return name; }
      float getBalance() const{return balance;}
-     [[nodiscard]] size_t getOrderCount() const { return orders.size(); }
      const std::queue<Order>& getOrders() const {return orders;}
-     std::queue<Order>& getOrders() {return orders;}
      std::size_t getCurrentStation() const {
           return currentStation;
      }
      //setter
      void setBalance(float b){balance=b;}
-     void addOrder(const Order& o){orders.push(o);}
      void setName(const std::string& n){name=n;}
      void SetCurrentStation(std::size_t index) {
           currentStation = index;
@@ -37,8 +34,6 @@ public:
      void setDays(unsigned int d) {
           days=d;
      }
-     //adder
-     void addBalance(float b){balance+=b;}
      // <<
      friend std::ostream& operator<<(std::ostream& os, const Player& p);
      //altele

@@ -34,9 +34,6 @@ public:
     Customer& operator=(const Customer& other);
 
     //getters
-    Order& getOrder() {
-        return order;
-    }
     const std::string& getName() const {return Name;}
 
     //destructor

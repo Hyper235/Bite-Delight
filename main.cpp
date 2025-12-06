@@ -3,8 +3,10 @@
 #include "Customer.h"
 #include <fstream>
 #include <iostream>
+#include <random>
 #define SAVEGAME "saves/player.txt"
 int main() {
+    std::srand(std::time(nullptr));
     std::vector<FoodItem> menu = {
         FoodItem(
             1,
@@ -59,4 +61,7 @@ int main() {
     std::cout<<player;
     Customer c1(menu);
     std::cout<<c1;
+    Customer c2(menu);
+    std::cout<<c2;
+
 }

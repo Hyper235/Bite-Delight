@@ -19,7 +19,6 @@ Customer::Customer(const std::string& n, const Order& o): Name(n), order(o) {}
 //others
 Order Customer::generateRandomOrder(const std::vector<FoodItem>& menu) {
     Order ord;
-    std::srand(std::time(nullptr));
     int random = std::rand() % 100 + 1;
 
     if (random <= 30) {
@@ -52,7 +51,6 @@ Order Customer::generateRandomOrder(const std::vector<FoodItem>& menu) {
     return ord;
 }
 std::string Customer::generateRandomName() {
-    srand(time(nullptr));
     const std::vector<std::string> names = {
         "Andrei", "Maria", "Ion", "Elena", "Alexandru", "Ioana",
         "Gabriel", "Ana", "Mihai", "Larisa", "Florin", "Diana",
