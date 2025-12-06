@@ -28,22 +28,22 @@ public:
           return currentStation;
      }
      //setter
-     [[maybe_unused]]void setBalance(float b){balance=b;}
-     [[maybe_unused]]void addOrder(const Order& o){orders.push(o);}
-     [[maybe_unused]]void setName(const std::string& n){name=n;}
-     [[maybe_unused]]void SetCurrentStation(std::size_t index) {
+     void setBalance(float b){balance=b;}
+     void addOrder(const Order& o){orders.push(o);}
+     void setName(const std::string& n){name=n;}
+     void SetCurrentStation(std::size_t index) {
           currentStation = index;
      }
-     [[maybe_unused]]void setDays(unsigned int d) {
+     void setDays(unsigned int d) {
           days=d;
      }
      //adder
-     [[maybe_unused]]void addBalance(float b){balance+=b;}
+     void addBalance(float b){balance+=b;}
      // <<
      friend std::ostream& operator<<(std::ostream& os, const Player& p);
      //altele
-     [[maybe_unused]]void placeOrder(const Order& order);
-     [[maybe_unused]]void finishOrder();
+     void placeOrder(const Order& order);
+     void finishOrder();
 
 };
 #endif //OOP_PLAYER_H

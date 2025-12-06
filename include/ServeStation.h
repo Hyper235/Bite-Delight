@@ -14,12 +14,12 @@
 class ServeStation: public WorkStation {
 public:
     ServeStation();
-   [[maybe_unused]] void processAction(ActionType action,
+    void processAction(ActionType action,
                            Ingredient* ingredient,
                            Order& order,
                            Player& player) override;
-    [[maybe_unused]][[nodiscard]]std::unique_ptr<WorkStation> clone() const override;
+    [[nodiscard]]std::unique_ptr<WorkStation> clone() const override;
 protected:
-    [[maybe_unused]]void printImpl(std::ostream& os) const override;
+    void printImpl(std::ostream& os) const override;
 };
 #endif //OOP_SERVESTATION_H

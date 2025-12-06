@@ -18,6 +18,6 @@ public:
                            Player& player) override;
     [[nodiscard]]std::unique_ptr<WorkStation> clone() const override;
 protected:
-    [[maybe_unused]]void printImpl(std::ostream& os) const override;
+    void printImpl(std::ostream& os) const override;
 };
 #endif //OOP_ORDERSTATION_H
