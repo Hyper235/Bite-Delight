@@ -27,6 +27,7 @@ void GrillStation::processAction(ActionType action,
             break;
     }
 }
+
 std::unique_ptr<WorkStation> GrillStation::clone() const {
     return std::make_unique<GrillStation>(*this);
 }

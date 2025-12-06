@@ -68,6 +68,7 @@ add_executable(${MAIN_EXECUTABLE_NAME}
         src/ServeStation.cpp
         src/OrderStation.cpp
         src/Restaurant.cpp
+        src/Game.cpp
 )
 
 target_include_directories(${MAIN_EXECUTABLE_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/include )

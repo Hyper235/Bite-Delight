@@ -3,11 +3,16 @@
 //
 #include "../include/Player.h"
 #include "../include/Order.h"
+#include <../include/Exceptions.h>
 #include <queue>
 //implicit
 Player::Player():name("NULL"), balance(0.0f){}
 //parametric
-Player::Player(const std::string &n, float balance): name(n), balance(balance){}
+Player::Player(const std::string &n, float balance): name(n), balance(balance) {
+    if (name.empty()) {
+        throw ConfigException("Player's name field can't be empty");
+    }
+}
 // <<
 std::ostream& operator<<(std::ostream& os, const Player& p) {
     os << "Player: " << p.getName() << "\n";

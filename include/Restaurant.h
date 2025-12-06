@@ -19,7 +19,8 @@ public:
                                            ActionType action,
                                            Ingredient* ingredient,
                                            Order& order,
-                                           Player& player);
+                                           Player& player) const;
+    void switchHUD(std::size_t index) const;
 };
 
 #endif //OOP_RESTAURANT_H
