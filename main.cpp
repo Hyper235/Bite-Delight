@@ -7,41 +7,6 @@
 #define SAVEGAME "saves/player.txt"
 int main() {
     std::srand(std::time(nullptr));
-    std::vector<FoodItem> menu = {
-        FoodItem(
-            1,
-            { Ingredient::BunBottom, Ingredient::Patty, Ingredient::Cheese, Ingredient::Lettuce, Ingredient::Tomato },
-            "Classic Burger",
-            19.99f,
-            FoodType::FOOD
-        ),
-
-        FoodItem(
-            2,
-            { Ingredient::BunBottom, Ingredient::Patty, Ingredient::Cheese, Ingredient::Cheese, Ingredient::Tomato },
-            "Double Cheese Burger",
-            22.50f,
-            FoodType::FOOD
-        ),
-
-        FoodItem(
-            3,
-            { },
-            "Cola 500ml",
-            7.50f,
-            FoodType::DRINK
-        ),
-
-        FoodItem(
-            4,
-            { },
-            "Apa plata 500ml",
-            5.00f,
-            FoodType::DRINK
-        ),
-    };
-
-
     Player player;
     std::ifstream in("../saves/player.txt");
 

@@ -15,6 +15,7 @@ private:
     float tips;
     Dif difficulty;
     std::vector<FoodItem> items;
+    std::vector<bool> prepared;
     std::chrono::system_clock::time_point timestamp = std::chrono::system_clock::now();
     std::chrono::seconds maxDuration;
     static unsigned int finishedOrders;
@@ -30,14 +31,14 @@ public:
     void setTips(unsigned int t){tips=t;}
     void setDifficulty(Dif d){difficulty=d;}
     void setMaxDuration(unsigned int seconds){maxDuration=std::chrono::seconds(seconds);}
-
-
     //getters
     [[nodiscard]]float getTips() const{return tips;}
     [[nodiscard]]unsigned int getID() const{return id;}
     std::chrono::system_clock::time_point getTimestamp() const { return timestamp; }
     std::chrono::seconds getMaxDuration() const { return maxDuration; }
-
+    const std::vector<FoodItem>& getItems() const {
+        return items;
+    }
     //adders
     void addItemToOrder(const FoodItem& it);
     void addTips(float t){tips+=t;}
@@ -48,6 +49,6 @@ public:
     //others
     [[nodiscard]] bool hasExpired() const;
     [[nodiscard]] float calc()const;
-    static void resetIDs();
+    bool registerPreparedItem(const FoodItem& preparedItem);
 };
 #endif //OOP_ORDER_H

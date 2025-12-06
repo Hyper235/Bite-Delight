@@ -2,6 +2,7 @@
 // Created by Catalin on 10/29/2025.
 //
 #include "../include/Order.h"
+#include "../include/FoodItem.h"
 unsigned int Order::nextId = 1;
 //Implicit
 Order::Order()
@@ -72,7 +73,12 @@ float Order::calc() const {
     else if (this->difficulty == Dif::MEDIUM)total*=1.3f;
     return total;
 }
-void Order::resetIDs() {
-    Order::nextId = 1;
+bool Order::registerPreparedItem(const FoodItem& preparedItem) {
+    for (std::size_t i = 0; i < this->items.size(); ++i) {
+        if (!this->prepared[i] && this->items[i].GetID() == preparedItem.GetID()) {
+            this->prepared[i] = true;
+            return true;
+        }
+    }
+    return false;
 }
-

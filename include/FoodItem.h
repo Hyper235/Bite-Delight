@@ -34,6 +34,8 @@ public:
     //getteri
     const std::string& getName() const { return name; }
     float getPrice() const { return price; }
+    unsigned int GetID() const{ return id;}
+    const std::vector<Ingredient>& getRecipe() const{return recipe;}
 
     //setteri
     void setName(const std::string& n) { name = n; }

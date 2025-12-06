@@ -11,6 +11,12 @@ enum class Ingredient {
     Lettuce,
     Tomato,
     Sauce,
-    BunTop
+    BunTop,
+    ChickenPatty,
+    Egg,
+    Bacon,
+    Onion,
+    Pickles,
+    Jalapeno
 };
 #endif //OOP_INGREDIENT_H

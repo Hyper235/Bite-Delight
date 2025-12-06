@@ -11,6 +11,7 @@
 
 class BuildStation: public WorkStation {
 public:
+    std::vector<Ingredient> currentRecipe;
     BuildStation();
     void processAction(ActionType action,
                            Ingredient* ingredient,
@@ -19,6 +20,7 @@ public:
     [[nodiscard]]std::unique_ptr<WorkStation> clone() const override;
 protected:
     void printImpl(std::ostream& os) const override;
+    const FoodItem* matchRecipe(const std::vector<Ingredient>& built) const;
 
 };
 #endif //OOP_BUILDSTATION_H

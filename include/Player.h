@@ -21,7 +21,7 @@ public:
      //getters
      const std::string& getName() const { return name; }
      float getBalance() const{return balance;}
-     const std::queue<Order>& getOrders() const {return orders;}
+     Order& getActiveOrder() {return orders.front();}
      std::size_t getCurrentStation() const {
           return currentStation;
      }
