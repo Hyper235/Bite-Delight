@@ -15,12 +15,12 @@ public:
     ~Restaurant() = default;
     Restaurant(const Restaurant&) = delete;
     Restaurant& operator=(const Restaurant&) = delete;
-    void handlePlayerAtStation(std::size_t index,
+    [[maybe_unused]]void handlePlayerAtStation(std::size_t index,
                                            ActionType action,
                                            Ingredient* ingredient,
                                            Order& order,
                                            Player& player) const;
-    void switchHUD(std::size_t index) const;
+    [[maybe_unused]]void switchHUD(std::size_t index) const;
 };
 
 #endif //OOP_RESTAURANT_H

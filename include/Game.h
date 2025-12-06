@@ -32,12 +32,12 @@ private:
     Button startButton;
     Button exitButton;
 
-    void initMainMenu();
-    void runMainMenuStep();
-    void runGameStep();
+    [[maybe_unused]]void initMainMenu();
+    [[maybe_unused]]void runMainMenuStep();
+    [[maybe_unused]]void runGameStep();
 
-    void handleMenuEvents();
-    void updateMenu();
-    void renderMenu();
+    [[maybe_unused]]void handleMenuEvents();
+    [[maybe_unused]]void updateMenu();
+    [[maybe_unused]]void renderMenu();
 };
 #endif //OOP_GAME_H

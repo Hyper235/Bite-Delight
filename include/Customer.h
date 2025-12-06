@@ -34,10 +34,10 @@ public:
     Customer& operator=(const Customer& other);
 
     //getters
-    Order& getOrder() {
+    [[maybe_unused]]Order& getOrder() {
         return order;
     }
-    const std::string& getName() const {return Name;}
+   [[maybe_unused]]const std::string& getName() const {return Name;}
 
     //destructor
     ~Customer(){std::cout<<"\nDestructor call: CUSTOMER "<<Name<<"\n";}

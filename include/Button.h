@@ -15,7 +15,7 @@ public:
            const sf::Font& font,
            const std::string& text)
         : m_shape(size)
-        , m_text(font, text, 42)  // Text(font, string, characterSize) - SFML 3
+        , m_text(font, text, 42)
     {
         // Stil buton
         m_shape.setFillColor(sf::Color(255, 160, 40));   // portocaliu
@@ -53,7 +53,7 @@ public:
         }
     }
 
-    bool isMouseOver(const sf::RenderWindow& window) const {
+    [[maybe_unused]]bool isMouseOver(const sf::RenderWindow& window) const {
         sf::Vector2i mousePosPixels = sf::Mouse::getPosition(window);
         sf::Vector2f mousePos{
             static_cast<float>(mousePosPixels.x),
@@ -68,4 +68,4 @@ private:
     sf::Text           m_text;
 };
 
-#endif //OOP_BUTON_H
+#endif //OOP_BUTTON_H

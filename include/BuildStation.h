@@ -12,13 +12,13 @@
 class BuildStation: public WorkStation {
 public:
     BuildStation();
-    void processAction(ActionType action,
+    [[maybe_unused]]void processAction(ActionType action,
                            Ingredient* ingredient,
                            Order& order,
                            Player& player) override;
     [[nodiscard]]std::unique_ptr<WorkStation> clone() const override;
 protected:
-    void printImpl(std::ostream& os) const override;
+    [[maybe_unused]]void printImpl(std::ostream& os) const override;
 
 };
 #endif //OOP_BUILDSTATION_H

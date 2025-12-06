@@ -6,9 +6,9 @@
 #include <../include/Exceptions.h>
 #include <queue>
 //implicit
-Player::Player():name("NULL"), balance(0.0f){}
+Player::Player():name("NULL"), balance(0.0f),days(0){}
 //parametric
-Player::Player(const std::string &n, float balance): name(n), balance(balance) {
+Player::Player(const std::string &n, float balance): name(n), balance(balance),days(0) {
     if (name.empty()) {
         throw ConfigException("Player's name field can't be empty");
     }
@@ -16,8 +16,9 @@ Player::Player(const std::string &n, float balance): name(n), balance(balance) {
 // <<
 std::ostream& operator<<(std::ostream& os, const Player& p) {
     os << "Player: " << p.getName() << "\n";
-    os << "  Balance: " << p.getBalance() << " RON\n";
-    os << "  Pending Orders (" << p.orders.size() << "):\n";
+    os<< "Days: "<<p.days<<"\n";
+    os << "Balance: " << p.getBalance() << " RON\n";
+    os << "Pending Orders (" << p.orders.size() << "):\n";
 
     std::queue<Order> q = p.orders;
 
