@@ -4,6 +4,7 @@
 #include <fstream>
 #include <iostream>
 #include <random>
+#include "Menu.h"
 #define SAVEGAME "saves/player.txt"
 int main() {
     std::srand(std::time(nullptr));
@@ -24,9 +25,9 @@ int main() {
         std::cerr << "Nu pot citi saves/player.txt – folosesc nume default.\n";
     }
     std::cout<<player;
-    Customer c1(menu);
+    Customer c1(Menu::getMenu());
     std::cout<<c1;
-    Customer c2(menu);
+    Customer c2(Menu::getMenu());
     std::cout<<c2;
 
 }

@@ -24,7 +24,7 @@ const FoodItem* BuildStation::matchRecipe(const std::vector<Ingredient>& built) 
 void BuildStation::processAction(ActionType action,
                                  Ingredient* ingredient,
                                  Order& order,
-                                 Player& player)
+                                 [[maybe_unused]]Player& player)
 {
     switch (action) {
 
