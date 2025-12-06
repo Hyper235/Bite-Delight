@@ -23,10 +23,10 @@ private:
     GameState state{GameState::MainMenu};
     //texturi
     sf::Texture bgTexture;
-    sf::Sprite  bg{bgTexture};
+    sf::Sprite  bg;
 
     sf::Texture logoTexture;
-    sf::Sprite  logo{bgTexture};
+    sf::Sprite  logo;
 
     sf::Font font;
     Button startButton;

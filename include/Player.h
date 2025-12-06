@@ -12,6 +12,7 @@ protected:
      std::string name;
      float balance;
      std::queue<Order> orders;
+
 public:
      Player();//constructor implicit
      Player(const std::string& n, float balance); //parametric
