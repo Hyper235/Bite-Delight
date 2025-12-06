@@ -35,8 +35,6 @@ void BuildStation::processAction(ActionType action,
             currentRecipe.push_back(*ingredient);
             std::cout << "[BuildStation] Ingredient added.\n";
             break;
-
-
         case ActionType::FinishItem: {
             const FoodItem* built = matchRecipe(currentRecipe);
 

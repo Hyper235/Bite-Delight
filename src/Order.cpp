@@ -10,8 +10,9 @@ Order::Order()
       tips(0.0f),
       difficulty(Dif::EASY),
       timestamp(std::chrono::system_clock::now()),
-      maxDuration(static_cast<std::chrono::seconds::rep>(0))
-{}
+      maxDuration(static_cast<std::chrono::seconds::rep>(0)) {
+    prepared.assign(items.size(), false);
+}
 //Parametric
 Order::Order(unsigned int i,
              float tipsAmount,
@@ -23,11 +24,13 @@ Order::Order(unsigned int i,
       difficulty(diff),
       items(itemsList),
       timestamp(std::chrono::system_clock::now()),
-      maxDuration(static_cast<std::chrono::seconds::rep>(maxSec))
-{}
+      maxDuration(static_cast<std::chrono::seconds::rep>(maxSec)) {
+    prepared.assign(items.size(), false);
+}
 
 void Order::addItemToOrder(const FoodItem &it) {
     items.push_back(it);
+    prepared.push_back(false);
 }
 
 //<<
@@ -81,4 +84,16 @@ bool Order::registerPreparedItem(const FoodItem& preparedItem) {
         }
     }
     return false;
+}
+bool Order::isComplete() const {
+    if (items.empty()) {
+        return false;
+    }
+
+    for (bool p : prepared) {
+        if (!p) {
+            return false;
+        }
+    }
+    return true;
 }

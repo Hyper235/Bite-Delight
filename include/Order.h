@@ -39,6 +39,7 @@ public:
     const std::vector<FoodItem>& getItems() const {
         return items;
     }
+
     //adders
     void addItemToOrder(const FoodItem& it);
     void addTips(float t){tips+=t;}
@@ -50,5 +51,6 @@ public:
     [[nodiscard]] bool hasExpired() const;
     [[nodiscard]] float calc()const;
     bool registerPreparedItem(const FoodItem& preparedItem);
+    bool isComplete() const;
 };
 #endif //OOP_ORDER_H

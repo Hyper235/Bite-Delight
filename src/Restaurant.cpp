@@ -8,7 +8,7 @@
 #include "../include/Player.h"
 #include <../include/Exceptions.h>
 Restaurant::Restaurant() {
-    // stations.push_back(std::make_unique<OrderStation>());
+     stations.push_back(std::make_unique<OrderStation>());
     stations.push_back(std::make_unique<GrillStation>());
     stations.push_back(std::make_unique<BuildStation>());
     stations.push_back(std::make_unique<ServeStation>());
