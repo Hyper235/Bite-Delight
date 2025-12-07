@@ -1,130 +1,64 @@
-# Nu primesc notă pentru că nu am pus titlu și descriere
+# Bite & Delight 🍔🍕🥤
+## Milestone 0
+### Descriere
+Bite & Delight este un joc de tip Fast Food Tycoon, inspirat din celebra serie Papa’s Games. Jucătorul administrează un restaurant mixt de fast food, unde poate crea și vinde diverse produse – pizza, burgeri, snacks și băuturi – gestionând meniurile și comenzile clienților.
 
-### Important!
-Aveți voie cu cod generat de modele de limbaj la care nu ați contribuit semnificativ doar în folder-ul `generated`.
-Codul generat pus "ca să fie"/pe care nu îl înțelegeți se punctează doar pentru puncte bonus, doar în contextul
-în care oferă funcționalități ajutătoare și doar dacă are sens.
+Proiectul este realizat în C++, cu accent pe programarea orientată pe obiecte (OOP) și poate fi extins ulterior cu interfață grafică sau funcționalități suplimentare.
 
-O cerință nu se consideră îndeplinită dacă este realizată doar ca o serie de apeluri proxy către cod generat.
+## Milestone 1
 
-### Cerințe modele de limbaj la nivel de semestru
-- [ ] minim o funcționalitate majoritar doar cu LLM
-- [ ] minim 2-3 funcționalități ~50% voi, ~50% LLM-ul
-- [ ] minim 2-3 funcționalități suficient de complicate pe care un LLM nu le poate implementa
+#### 1 ✅) definirea a minim 3-4 clase folosind compunere cu clasele definite de voi; moștenirile nu se iau în considerare aici  
+Am stabilit fundația proiectului prin crearea a patru clase esențiale pentru mecanica jocului:  
+   a) `FoodItem` (`FoodItem.h / FoodItem.cpp`) - Produs  
+   b) `Order` (`Order.h / Order.cpp`) - Comanda  
+   c) `Player` (`Player.h / Player.cpp`) - Jucator/Administrator  
+   d) `Customer` (`Customer.h/ Customer.cpp`) - Client  
+   Aceste clase sunt interconectate folosind principiul compunerii (relația "has-a"), asigurând o arhitectură curată, decuplată și o separare clară a responsabilităților:  
+   a) `Player` are o coadă (`std::queue`) de obiecte `Order`.  
+   b) `Customer` are un obiect `Order` (pe care îl generează aleatoriu).  
+   c) `Order` are un vector (`std::vector`) de obiecte `FoodItem`.  
+   
+#### 2 ✅)constructori de inițializare cu parametri pentru fiecare clasă  
+Am implementat constructori de inițializare cu parametru pentru toate cele patru clase. Aceștia asigură inițializarea corectă și completă a obiectelor la creare.  
+  a) `FoodItem`: Primește `id`, `name`, `price`, și `type` (pentru a defini un produs unic).  
+  b) `Order`: Primește `id`, `nivelul de difficulty`, `maxDuration` (durata maximă) și lista de `FoodItem-uri` (conținutul comenzii).  
+  c) `Player`: Primește `name` și `balance` (soldul inițial).  
+  d) `Customer`: Primeste `name` și `Order` sau, alternativ, meniul `(std::vector<FoodItem>)` din care își generează automat o comandă.  
+  
+#### 3 ✅)pentru o aceeași (singură) clasă: constructor de copiere, operator= de copiere, destructor  
+   Pentru a asigura un management corect și sigur al resurselor obiectelor, am implementat toate acestea pentru clasa `Customer`.  
+   
+   a)Constructor de Copiere: `Customer(const Customer& alt)`  
+   b)Operator de Atribuire (operator=): `Customer& operator=(const Customer& other)`  
+   c)Destructor: `~Customer()`  
+   
+#### 4 ✅) implementarea a minim 3 funcții membru publice pentru funcționalități netriviale specifice temei alese, dintre care cel puțin 1-2 funcții mai complexe
+   Am depășit cerința minimă, implementând multiple funcții publice cu logică de business specifică temei, care nu sunt simple operații get/set sau add/delete.  
 
-### Tema 0
+   `Customer::generateRandomOrder()` (Funcție Complexă): Această funcție statică nu doar creează o comandă, ci folosește logică de probabilitate (std::rand() % 100) pentru a determina dificultatea, numărul de produse și durata comenzii (maxDuration). De asemenea, selectează aleatoriu produse dintr-un `std::vector<FoodItem>` (meniul) pentru a compune comanda.  
 
-- [ ] Nume proiect (poate fi schimbat ulterior)
-- [ ] Scurtă descriere a temei alese, ce v-ați propus să implementați
+   `Order::calc() const`: O funcție netrivială de calcul care iterează prin std::vector<FoodItem> pentru a calcula suma de bază. Ulterior, aplică logică de business, modificând prețul total pe baza unui multiplicator (ex: * 1.15f sau * 1.30f) în funcție de membrul difficulty (Medium/Hard).  
 
-## Tema 1
+   `Order::hasExpired()` const: O funcție de validare care utilizează biblioteca std::chrono. Calculează diferența dintre timpul curent (system_clock::now()) și timestamp-ul comenzii, comparând durata scursă cu maxDuration pentru a determina dacă comanda a expirat.    
 
-#### Cerințe
-- [ ] definirea a minim **3-4 clase** folosind compunere cu clasele definite de voi
-- [ ] constructori de inițializare cu parametri
-- [ ] pentru o aceeași (singură) clasă: constructor de copiere, `operator=` de copiere, destructor
-<!-- - [ ] pentru o altă clasă: constructor de mutare, `operator=` de mutare, destructor -->
-<!-- - [ ] pentru o altă clasă: toate cele 5 funcții membru speciale -->
-- [ ] `operator<<` pentru toate clasele pentru afișare (std::ostream)
-- [ ] cât mai multe `const` (unde este cazul)
-- [ ] implementarea a minim 3 funcții membru publice pentru funcționalități specifice temei alese, dintre care cel puțin 1-2 funcții mai complexe
-  - nu doar citiri/afișări sau adăugat/șters elemente într-un/dintr-un vector
-- [ ] scenariu de utilizare a claselor definite:
-  - crearea de obiecte și apelarea tuturor funcțiilor membru publice în main
-  - vor fi adăugate în fișierul `tastatura.txt` DOAR exemple de date de intrare de la tastatură (dacă există); dacă aveți nevoie de date din fișiere, creați alte fișiere separat
-- [ ] tag de `git`: de exemplu `v0.1`
-- [ ] serviciu de integrare continuă (CI); exemplu: GitHub Actions
+   `Player::finishOrder()` (Funcție Foarte Complexă): Aceasta este cea mai complexă funcție din proiect, gestionând logica centrală de recompensă. Ea folosește std::chrono pentru a calcula timeRatio (procentajul de timp scurs față de cel maxim). Pe baza acestui raport, aplică o logică condițională complexă (ex: timeRatio < 0.3f) pentru a determina bacșișul (tips), care este apoi adăugat la balanța (balance) jucătorului.  
 
-## Tema 2
+#### 5✅ ) scenariu de utilizare cu sens a claselor definite    
+   Am implementat un scenariu de utilizare în main.cpp pentru a demonstra funcționalitatea completă a sistemului și corectitudinea implementării OOP.  
 
-#### Cerințe
-- [ ] separarea codului din clase în `.h` (sau `.hpp`) și `.cpp`
-- [ ] moșteniri:
-  - minim o clasă de bază și **3 clase derivate** din aceeași ierarhie
-  - ierarhia trebuie să fie cu bază proprie, nu derivată dintr-o clasă predefinită
-  - [ ] funcții virtuale (pure) apelate prin pointeri de bază din clasa care conține atributul de tip pointer de bază
-    - minim o funcție virtuală va fi **specifică temei** (e.g. nu simple citiri/afișări)
-    - constructori virtuali (clone): sunt necesari, dar nu se consideră funcții specifice temei
-    - afișare virtuală, interfață non-virtuală
-  - [ ] apelarea constructorului din clasa de bază din constructori din derivate
-  - [ ] clasă cu atribut de tip pointer la o clasă de bază cu derivate; aici apelați funcțiile virtuale prin pointer de bază, eventual prin interfața non-virtuală din bază
-    - [ ] suprascris cc/op= pentru copieri/atribuiri corecte, copy and swap
-    - [ ] `dynamic_cast`/`std::dynamic_pointer_cast` pentru downcast cu sens
-    - [ ] smart pointers (recomandat, opțional)
-- [ ] excepții
-  - [ ] ierarhie proprie cu baza `std::exception` sau derivată din `std::exception`; minim **3** clase pentru erori specifice
-  - [ ] utilizare cu sens: de exemplu, `throw` în constructor (sau funcție care întoarce un obiect), `try`/`catch` în `main`
-  - această ierarhie va fi complet independentă de ierarhia cu funcții virtuale
-- [ ] funcții și atribute `static`
-- [ ] STL
-- [ ] cât mai multe `const`
-- [ ] funcții *de nivel înalt*, de eliminat cât mai mulți getters/setters/funcții low-level
-- [ ] la sfârșit: commit separat cu adăugarea unei noi clase derivate fără a modifica restul codului, **pe lângă cele 3 derivate deja adăugate** din aceeași ierarhie
-  - noua derivată nu poate fi una existentă care a fost ștearsă și adăugată din nou
-- [ ] tag de `git`: de exemplu `v0.2`
+   Testare Unitară: main-ul a fost structurat folosind funcții de testare dedicate pentru fiecare clasă (`testFoodItem()`, `testOrder()`, `testPlayer()`, `testCustomer()`). Aceste funcții verifică individual fiecare funcție publică:    
 
-## Tema 3
+   Toți constructorii (impliciți, parametrici).  
 
-#### Cerințe
-- [ ] 2 șabloane de proiectare (design patterns)
-- [ ] o clasă șablon cu sens; minim **2 instanțieri**
-  - [ ] preferabil și o funcție șablon (template) cu sens; minim 2 instanțieri
-<!-- - [ ] o specializare pe funcție/clasă șablon -->
-- [ ] tag de `git`: de exemplu `v0.3` sau `v1.0`
+   Copiere/operator =/destructori (`Customer(const Customer&)` și `operator=`).  
 
-## Instrucțiuni de compilare
+   Toți getterii, setterii și operatorii <<.  
 
-Proiectul este configurat cu CMake.
+   Test de Integrare (Scenariu "cu sens"): Funcția `testFullScenario()` simulează un flux real de joc. Aceasta integrează toate clasele: un Customer aleatoriu își generează comanda, o trimite Player-ului, Player-ul așteaptă un timp simulat (folosind `std::this_thread::sleep_for`) și apoi finalizează comanda, calculând corect bacșișul (tips).  
 
-Instrucțiuni pentru terminal:
+   tastatura.txt: Deoarece proiectul nu necesită citire de la `std::cin` (datele sunt generate procedural sau hardcodate pentru testare), fișierul `tastatura.txt` a fost lăsat gol, conform cerinței.    
 
-0. Biblioteci necesare pe Linux (presupunem sistem de operare bazat pe Debian)
-```sh
-sudo apt-get update && \
-  sudo apt-get install libxrandr-dev \
-    libxcursor-dev \
-    libudev-dev \
-    libopenal-dev \
-    libflac-dev \
-    libvorbis-dev \
-    libgl1-mesa-dev \
-    libegl1-mesa-dev \
-    libdrm-dev \
-    libgbm-dev \
-    libfreetype6-dev
-```
-
-Dacă lipsesc și alte biblioteci, ștergeți folder-ul de build de la pasul 1 și reconfigurați proiectul după ce ați instalat ce lipsea.
-
-1. Pasul de configurare
-```sh
-cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
-```
-
-Sau pe Windows cu GCC:
-```sh
-cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug -G Ninja
-```
-
-La acest pas putem cere să generăm fișiere de proiect pentru diverse medii de lucru.
-
-
-2. Pasul de compilare
-```sh
-cmake --build build --config Debug --parallel 6
-```
-
-Cu opțiunea `parallel` specificăm numărul de fișiere compilate în paralel.
-
-3. Pasul de instalare (opțional)
-```sh
-cmake --install build --config Debug --prefix install_dir
-```
-
-Vezi și [`scripts/cmake.sh`](scripts/cmake.sh).
-
-## Resurse
-
-- [SFML](https://github.com/SFML/SFML/tree/2.6.1) (Zlib)
-  - [OpenAL](https://openal-soft.org/) (LGPL): din cauza licenței, trebuie distribuită ca shared library
-- adăugați trimiteri către resursele externe care v-au ajutat sau pe care le-ați folosit
+   Output-ul consolei (vizibil în Actions pe GitHub) demonstrează că toate funcțiile, inclusiv logica complexă de timp și copiere, funcționează conform așteptărilor.  
+#### 6 ✅) minim 50-55% din codul propriu să fie C++, .gitattributes configurat corect  
+#### 7 ✅) tag de git: de exemplu v0.1  
+#### 8 ✅) serviciu de integrare continuă (CI) cu toate bifele; exemplu: GitHub Actions  
