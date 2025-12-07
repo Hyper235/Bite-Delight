@@ -21,7 +21,6 @@ public:
      //getters
      const std::string& getName() const { return name; }
      float getBalance() const{return balance;}
-     Order& getActiveOrder() {return orders.front();}
      std::size_t getCurrentStation() const {
           return currentStation;
      }

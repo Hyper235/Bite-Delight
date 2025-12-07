@@ -37,8 +37,6 @@ public:
 
     //setteri
     void setName(const std::string& n) { name = n; }
-    void setPrice(float p) { price = p; }
-
     //operator <<
     friend std::ostream& operator<<(std::ostream& os, const FoodItem& item);
 };

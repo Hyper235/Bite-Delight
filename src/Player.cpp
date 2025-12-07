@@ -56,6 +56,7 @@ void Player::finishOrder() {
     } else {
         tipAmount = 0.0f;
     }
+    if (currentOrder.hasExpired())basePrice*=0.8f;
     currentOrder.setTips(tipAmount);
 
     this->balance+=tipAmount +basePrice;

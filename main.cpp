@@ -45,9 +45,9 @@ int main() {
         const std::size_t BUILD_INDEX = 2;
         const std::size_t SERVE_INDEX = 3;
         Restaurant restaurant;
-        std::cout << "\n=== Player ajunge la BuildStation ===\n";
+        player.SetCurrentStation(2);
         restaurant.switchHUD(BUILD_INDEX);
-
+        std::cout << "\n=== Player ajunge la ServeStation === INDEX: "<<player.getCurrentStation()<<"\n";
         Ingredient i1 = Ingredient::BunBottom;
         Ingredient i2 = Ingredient::Patty;
         Ingredient i3 = Ingredient::Cheese;
@@ -81,8 +81,8 @@ int main() {
         std::cout << "\nDupa BuildStation, status order complete? "
                   << std::boolalpha << ord.isComplete() << "\n";
         std::this_thread::sleep_for(std::chrono::seconds(1LL));
-
-        std::cout << "\n=== Player ajunge la ServeStation ===\n";
+        player.SetCurrentStation(3);
+        std::cout << "\n=== Player ajunge la ServeStation === INDEX: "<<player.getCurrentStation()<<"\n";
         restaurant.switchHUD(SERVE_INDEX);
         std::this_thread::sleep_for(std::chrono::seconds(1LL));
         restaurant.handlePlayerAtStation(SERVE_INDEX, ActionType::ServeOrder, nullptr, ord, player);
