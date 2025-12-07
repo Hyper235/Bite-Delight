@@ -15,9 +15,6 @@ Restaurant::Restaurant() {
 
 
 }
-#include <iostream>
-#include <stdexcept>
-
 void Restaurant::handlePlayerAtStation(std::size_t index,
                                        ActionType action,
                                        Ingredient* ingredient,
@@ -62,4 +59,15 @@ void Restaurant::switchHUD(std::size_t index) const {
         std::cout << "Actiune: serveste comanda clientului.\n";
         return;
     }
+}
+Restaurant::Restaurant(const Restaurant& other) {
+    stations.reserve(other.stations.size());
+    for (const auto& ws : other.stations) {
+        stations.push_back(ws->clone());   // folosești virtual constructorul
+    }
+}
+
+Restaurant& Restaurant::operator=(Restaurant other) {
+    swap(*this, other);
+    return *this;
 }

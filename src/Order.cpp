@@ -79,7 +79,6 @@ float Order::calc() const {
 bool Order::registerPreparedItem(const FoodItem& preparedItem) {
     for (std::size_t i = 0; i < this->items.size(); ++i) {
         if (!this->prepared[i] && this->items[i].GetID() == preparedItem.GetID()) {
-            std::cout<<"yey";
             this->prepared[i] = true;
             return true;
         }

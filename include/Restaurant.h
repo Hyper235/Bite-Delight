@@ -13,14 +13,21 @@ private:
 public:
     Restaurant();
     ~Restaurant() = default;
-    Restaurant(const Restaurant&) = delete;
-    Restaurant& operator=(const Restaurant&) = delete;
     void handlePlayerAtStation(std::size_t index,
                                            ActionType action,
                                            Ingredient* ingredient,
                                            Order& order,
                                            Player& player) const;
     void switchHUD(std::size_t index) const;
+
+    Restaurant(const Restaurant& other);
+    Restaurant& operator=(Restaurant other);
+    Restaurant(Restaurant&&) noexcept = default;
+    Restaurant& operator=(Restaurant&&) noexcept = default;
+    friend void swap(Restaurant& a, Restaurant& b) noexcept {
+        using std::swap;
+        swap(a.stations, b.stations);
+    }
 };
 
 #endif //OOP_RESTAURANT_H
