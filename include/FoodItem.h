@@ -19,7 +19,7 @@ protected:
     FoodType type;
 
 public:
-    FoodItem() = default;
+    FoodItem(): id(0), recipe{}, name("Undefined"), price(0.0f), type(FoodType::UNDEFINED) {}
     //parametric
     FoodItem(unsigned int id,const std::vector<Ingredient>& recipe, const std::string& name, float price, FoodType type);
 
