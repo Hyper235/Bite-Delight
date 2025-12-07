@@ -25,14 +25,7 @@ public:
     static void registerOrderServed(const Order& order);
     static void registerOrderExpired(const Order& order);
 
-    static float getAverageRevenue() {
-        if (servedOrders == 0) return 0.0f;
-        return totalRevenue / static_cast<float>(servedOrders);
-    }
-      static void printStats();
-    static const std::vector<float>& getServedValues() {
-        return servedValues;
-    }
+    static void printStats();
 };
 
 #endif //OOP_GAMESTATS_H
