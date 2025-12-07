@@ -5,6 +5,7 @@
 #include "../include/Order.h"
 #include <../include/Exceptions.h>
 #include <queue>
+#include "GameStats.h"
 //implicit
 Player::Player():name("NULL"), balance(0.0f),days(0){}
 //parametric
@@ -34,7 +35,7 @@ std::ostream& operator<<(std::ostream& os, const Player& p) {
     }
     return os;
 }
-void Player::placeOrder(const Order& o){orders.push(o);}
+void Player::placeOrder(const Order& o){orders.push(o);GameStats::registerNewOrder(o);}
 
 void Player::finishOrder() {
     if (orders.empty()) {
@@ -56,7 +57,10 @@ void Player::finishOrder() {
     } else {
         tipAmount = 0.0f;
     }
-    if (currentOrder.hasExpired())basePrice*=0.8f;
+    if (currentOrder.hasExpired()) {
+        basePrice*=0.8f;
+        GameStats::registerOrderExpired(currentOrder);
+    }
     currentOrder.setTips(tipAmount);
 
     this->balance+=tipAmount +basePrice;

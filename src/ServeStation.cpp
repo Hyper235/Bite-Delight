@@ -6,6 +6,7 @@
 #include "../include/Order.h"
 #include "../include/Player.h"
 #include "../include/Exceptions.h"
+#include<GameStats.h>
 ServeStation::ServeStation() : WorkStation("ServeStation") {}
 void ServeStation::printImpl(std::ostream& os) const {
     os << "ServeStation (servire comenzi)";
@@ -26,6 +27,7 @@ void ServeStation::processAction([[maybe_unused]]ActionType action,
     std::cout<<"[ServeStation] Player "<<player.getName()<<" serveste comanda #"<<order.getID()<<"\n";
 
     std::cout << "[ServeStation] Comanda a fost servita cu succes!\n";
+    GameStats::registerOrderServed(order);
     player.finishOrder();
 
 

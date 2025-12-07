@@ -22,8 +22,8 @@ void Game::initMainMenu() {
 
     auto ts = bgTexture.getSize();
     bg.setScale({
-        W / float(ts.x),
-        H / float(ts.y)
+        static_cast<float>(W) / static_cast<float>(ts.x),
+        static_cast<float>(H) / static_cast<float>(ts.y)
     });
 
     if (!logoTexture.loadFromFile("date/img/logo.png")) {
@@ -34,7 +34,7 @@ void Game::initMainMenu() {
     auto lb = logo.getLocalBounds();
     logo.setOrigin({ lb.size.x / 2.f, lb.size.y / 2.f });
     logo.setScale({0.5f, 0.5f});
-    logo.setPosition({ W / 2.f, 300.f });
+    logo.setPosition({ static_cast<float>(W) / 2.f, 300.f });
 
 
     if (!font.openFromFile("fonts/arial.ttf")) {
@@ -44,8 +44,8 @@ void Game::initMainMenu() {
     startButton = Button({300.f, 80.f}, font, "Start Game");
     exitButton  = Button({300.f, 80.f}, font, "Exit");
 
-    startButton.setPosition({W / 2.f - 150.f, 500.f});
-    exitButton.setPosition   ({W / 2.f - 150.f, 620.f});
+    startButton.setPosition({static_cast<float>(W) / 2.f - 150.f, 500.f});
+    exitButton.setPosition   ({static_cast<float>(W) / 2.f - 150.f, 620.f});
 }
 
 void Game::run() {

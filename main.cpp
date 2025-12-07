@@ -7,6 +7,7 @@
 #include "Restaurant.h"
 #include <thread>
 #include "Exceptions.h"
+#include "GameStats.h"
 #include "Menu.h"
 #define SAVEGAME "saves/player.txt"
 int main() {
@@ -92,6 +93,7 @@ int main() {
 
         std::cout << "\n=== Sfarsit scenariu de test ===\n";
         Game game;
+        GameStats::printStats();
         game.run();
     }
     catch (const GameException& ex) {

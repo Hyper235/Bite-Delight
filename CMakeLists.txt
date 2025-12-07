@@ -71,7 +71,9 @@ add_executable(${MAIN_EXECUTABLE_NAME}
         src/Game.cpp
         src/Menu.cpp
     main.cpp
+        src/GameStats.cpp
 )
+
 file(COPY fonts DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 file(COPY date/img DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/date)
 target_include_directories(${MAIN_EXECUTABLE_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/include )
