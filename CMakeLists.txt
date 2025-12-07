@@ -72,7 +72,8 @@ add_executable(${MAIN_EXECUTABLE_NAME}
         src/Menu.cpp
     main.cpp
 )
-
+file(COPY fonts DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+file(COPY date/img DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/date)
 target_include_directories(${MAIN_EXECUTABLE_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/include )
 # NOTE: Add all defined targets (e.g. executables, libraries, etc. )
 # NOTE: RUN_SANITIZERS is optional, if it's not present it will default to true

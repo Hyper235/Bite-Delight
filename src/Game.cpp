@@ -14,7 +14,7 @@ void Game::initMainMenu() {
     const unsigned int W = window.getSize().x;
     const unsigned int H = window.getSize().y;
 
-    if (!bgTexture.loadFromFile("../date/img/bg.png")) {
+    if (!bgTexture.loadFromFile("date/img/bg.png")) {
         std::cerr << "Nu pot incarca date/img/bg.png\n";
     }
     bg.setTexture(bgTexture,true);
@@ -25,7 +25,7 @@ void Game::initMainMenu() {
         H / float(ts.y)
     });
 
-    if (!logoTexture.loadFromFile("../date/img/logo.png")) {
+    if (!logoTexture.loadFromFile("date/img/logo.png")) {
         std::cerr << "Nu pot incarca date/img/logo.png\n";
     }
     logo.setTexture(logoTexture,true);
@@ -36,7 +36,7 @@ void Game::initMainMenu() {
     logo.setPosition({ W / 2.f, 300.f });
 
 
-    if (!font.openFromFile("../fonts/arial.ttf")) {
+    if (!font.openFromFile("fonts/arial.ttf")) {
         std::cerr << "Nu pot incarca fonts/arial.ttf\n";
     }
 
