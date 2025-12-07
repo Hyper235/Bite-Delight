@@ -8,6 +8,7 @@ FoodItem::FoodItem(unsigned int i,const std::vector<Ingredient>& rec, const std:
 //copy
 FoodItem::FoodItem(const FoodItem& item)
     : id(item.id),
+      recipe(item.recipe),
       name(item.name),
       price(item.price),
       type(item.type)

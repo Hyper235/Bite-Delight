@@ -21,15 +21,14 @@ void ServeStation::processAction([[maybe_unused]]ActionType action,
     // Verificam daca comanda este completa
     if (!order.isComplete()) {
         throw ActionException("Comanda nu este completa, nu poate fi servita!");
-    }
 
-    // Marcăm comanda ca terminată
-    player.finishOrder();
+    }
+    std::cout<<"[ServeStation] Player "<<player.getName()<<" serveste comanda #"<<order.getID()<<"\n";
 
     std::cout << "[ServeStation] Comanda a fost servita cu succes!\n";
+    player.finishOrder();
 
 
-    std::cout<<"[ServeStation] Player "<<player.getName()<<" serveste comanda #"<<order.getID()<<"\n";
 }
 
 std::unique_ptr<WorkStation> ServeStation::clone() const {

@@ -79,6 +79,7 @@ float Order::calc() const {
 bool Order::registerPreparedItem(const FoodItem& preparedItem) {
     for (std::size_t i = 0; i < this->items.size(); ++i) {
         if (!this->prepared[i] && this->items[i].GetID() == preparedItem.GetID()) {
+            std::cout<<"yey";
             this->prepared[i] = true;
             return true;
         }
@@ -86,14 +87,24 @@ bool Order::registerPreparedItem(const FoodItem& preparedItem) {
     return false;
 }
 bool Order::isComplete() const {
+    std::cout << "  items.size = " << items.size()
+              << ", prepared.size = " << prepared.size() << "\n  ";
+
+    for (bool p : prepared) {
+        std::cout << std::boolalpha << p << " ";
+    }
+    std::cout << "\n";
+
     if (items.empty()) {
         return false;
     }
 
+    if (prepared.size() != items.size()) {
+        return false;
+    }
+
     for (bool p : prepared) {
-        if (!p) {
-            return false;
-        }
+        if (!p) return false;
     }
     return true;
 }

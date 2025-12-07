@@ -19,9 +19,7 @@ protected:
     FoodType type;
 
 public:
-    //implicit
-    FoodItem();
-
+    FoodItem() = default;
     //parametric
     FoodItem(unsigned int id,const std::vector<Ingredient>& recipe, const std::string& name, float price, FoodType type);
 

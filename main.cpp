@@ -35,9 +35,8 @@ int main() {
     ord.setDifficulty(Dif::MEDIUM);
     ord.setMaxDuration(3 * 30);
     ord.addItemToOrder(menu[0]);
-    ord.addItemToOrder(menu[1]);
-    ord.addItemToOrder(menu[0]);
     Customer c{"Gigel", ord};
+    player.placeOrder(ord);
     std::cout << "=== Customer & Order (scenariu joc) ===\n";
     std::cout << c << "\n";
 
@@ -79,5 +78,5 @@ int main() {
                   << std::boolalpha << ord.isComplete() << "\n";
 
         std::cout << "\n=== Sfarsit scenariu de test ===\n";
-
+    return 0;
     }

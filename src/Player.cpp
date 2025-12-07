@@ -37,6 +37,9 @@ std::ostream& operator<<(std::ostream& os, const Player& p) {
 void Player::placeOrder(const Order& o){orders.push(o);}
 
 void Player::finishOrder() {
+    if (orders.empty()) {
+        throw GameException("No orders to finish");
+    }
     Order& currentOrder = orders.front();
     float basePrice= currentOrder.calc();
     auto now = std::chrono::system_clock::now();
