@@ -14,6 +14,8 @@ enum class ActionType {
     TakeFriesFromFryer,
     AddIngredient,
     ServeOrder,
-    FinishItem
+    FinishItem,
+    PrepareDrink,
+    ServeDrink
 };
 #endif //OOP_ACTIONTYPE_H

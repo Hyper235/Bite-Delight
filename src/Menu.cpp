@@ -49,6 +49,13 @@ std::vector<FoodItem> Menu::menu = {
         "Deluxe Burger",
         27.5f,
         FoodType::FOOD
+    },
+    FoodItem{
+        6,
+        {},
+        "Cola",
+        7.0f,
+        FoodType::DRINK
     }
 
 };

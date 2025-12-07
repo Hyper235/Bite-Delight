@@ -4,6 +4,7 @@
 #include "../include/GrillStation.h"
 #include "../include/BuildStation.h"
 #include "../include/ServeStation.h"
+#include "../include/DrinkStation.h"
 #include "../include/Order.h"
 #include "../include/Player.h"
 #include <../include/Exceptions.h>
@@ -12,7 +13,7 @@ Restaurant::Restaurant() {
     stations.push_back(std::make_unique<GrillStation>());
     stations.push_back(std::make_unique<BuildStation>());
     stations.push_back(std::make_unique<ServeStation>());
-
+    stations.push_back(std::make_unique<DrinkStation>());
 
 }
 void Restaurant::handlePlayerAtStation(std::size_t index,

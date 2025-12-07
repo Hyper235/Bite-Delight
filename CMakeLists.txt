@@ -72,6 +72,7 @@ add_executable(${MAIN_EXECUTABLE_NAME}
         src/Menu.cpp
     main.cpp
         src/GameStats.cpp
+        src/DrinkStation.cpp
 )
 
 file(COPY fonts DESTINATION ${CMAKE_CURRENT_BINARY_DIR})

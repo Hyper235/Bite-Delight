@@ -38,6 +38,7 @@ int main() {
         ord.setMaxDuration(3 * 30);
         ord.addItemToOrder(menu[0]);
         ord.addItemToOrder(menu[0]);
+        ord.addItemToOrder(menu[5]);
         Customer c{"Gigel", ord};
         player.placeOrder(ord);
         std::cout << "=== Customer & Order (scenariu joc) ===\n";
@@ -79,6 +80,19 @@ int main() {
         std::this_thread::sleep_for(std::chrono::seconds(1LL));
         restaurant.handlePlayerAtStation(BUILD_INDEX, ActionType::FinishItem, nullptr, ord, player);
         std::this_thread::sleep_for(std::chrono::seconds(1LL));
+
+        //drink
+        restaurant.handlePlayerAtStation(4,
+                                 ActionType::PrepareDrink,
+                                 nullptr,
+                                 ord,
+                                 player);
+        restaurant.handlePlayerAtStation(4,
+                                 ActionType::ServeDrink,
+                                 nullptr,
+                                 ord,
+                                 player);
+
         std::cout << "\nDupa BuildStation, status order complete? "
                   << std::boolalpha << ord.isComplete() << "\n";
         std::this_thread::sleep_for(std::chrono::seconds(1LL));

@@ -24,7 +24,6 @@ public:
 
         m_text.setFillColor(sf::Color::White);
 
-        // Origin la mijloc pentru text (ca să-l centram ușor în buton)
         auto bounds = m_text.getLocalBounds();
         m_text.setOrigin({bounds.size.x / 2.f, bounds.size.y / 2.f});
     }
