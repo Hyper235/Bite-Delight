@@ -1,12 +1,1 @@
-ext/** linguist-vendored
-.github/** linguist-generated
-*.md linguist-documentation
-
-
-
-
-*.h linguist-language=C++
-*.hpp linguist-language=C++
-*.cpp linguist-language=C++
-*.cxx linguist-language=C++
-*.cc linguist-language=C++
+generated/** linguist-generated
