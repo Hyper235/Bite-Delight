@@ -6,7 +6,8 @@ Game::Game()
       startButton({300.f, 80.f}, font, "Start Game"),
       exitButton ({300.f, 80.f}, font, "Exit")
 {
-    //window.setFramerateLimit(60);
+    window.setVerticalSyncEnabled(false);
+    window.setFramerateLimit(60);
     initMainMenu();
 }
 
