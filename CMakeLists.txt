@@ -1,5 +1,5 @@
-cmake_minimum_required(VERSION 3.26)
-
+cmake_minimum_required(VERSION 3.5)
+set(CMAKE_POLICY_VERSION_MINIMUM 3.5)
 # NOTE: update executable name in .github/workflows/cmake.yml:25 when changing executable name in this file
 # for now, the project name is used as the executable name
 set(MAIN_PROJECT_NAME "oop")
@@ -33,12 +33,12 @@ set(WARNINGS_AS_ERRORS OFF)
 
 # NOTE: Also update SFML_VERSION env var in .github/workflows/cmake.yml:33
 FetchContent_Declare(
-        SFML
-        GIT_REPOSITORY https://github.com/SFML/SFML.git
-        GIT_TAG        3.0.0
-        # GIT_TAG        7f1162dfea4969bc17417563ac55d93b72e84c1e # 3.0.0
-        # GIT_TAG        origin/master
-        GIT_SHALLOW    1  # works only with branches or tags, not with arbitrary commit hashes
+    SFML
+    GIT_REPOSITORY https://github.com/SFML/SFML.git
+    GIT_TAG        3.0.0
+    # GIT_TAG        7f1162dfea4969bc17417563ac55d93b72e84c1e # 3.0.0
+    # GIT_TAG        origin/master
+    GIT_SHALLOW    1  # works only with branches or tags, not with arbitrary commit hashes
 )
 
 FetchContent_MakeAvailable(SFML)
@@ -70,6 +70,7 @@ add_executable(${MAIN_EXECUTABLE_NAME}
         src/Restaurant.cpp
         src/Game.cpp
         src/Menu.cpp
+    main.cpp
 )
 
 target_include_directories(${MAIN_EXECUTABLE_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/include )
