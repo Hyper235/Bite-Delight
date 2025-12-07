@@ -1,7 +1,10 @@
 ext/** linguist-vendored
 .github/** linguist-generated
 *.md linguist-documentation
-
+*.png  linguist-vendored
+*.jpg  linguist-vendored
+*.jpeg linguist-vendored
+cmake-build-debug/** linguist-vendored
 
 
 

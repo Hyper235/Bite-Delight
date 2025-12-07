@@ -60,6 +60,11 @@ void Restaurant::switchHUD(std::size_t index) const {
         std::cout << "Actiune: serveste comanda clientului.\n";
         return;
     }
+    if (dynamic_cast<DrinkStation*>(ws)) {
+        std::cout << "[HUD] Te afli la DRINK STATION\n";
+        std::cout << "Actiune: serveste comanda clientului.\n";
+        return;
+    }
 }
 Restaurant::Restaurant(const Restaurant& other) {
     stations.reserve(other.stations.size());
