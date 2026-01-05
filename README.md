@@ -66,7 +66,7 @@ Am implementat constructori de inițializare cu parametru pentru toate cele patr
 ## Milestone 2   
 #### 1 ✅) separarea codului din clase în .h (sau .hpp) și .cpp   
 #### 2 ✅) moșteniri:   
-   #### a ✅) minim o clasă de bază și 3 clase derivate din aceeași ierarhie   
+   ####a ✅) minim o clasă de bază și 3 clase derivate din aceeași ierarhie   
     Clasă de bază: WorkStation   
     Clase derivate:   
     OrderStation  
