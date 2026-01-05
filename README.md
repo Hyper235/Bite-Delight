@@ -63,54 +63,87 @@ Am implementat constructori de inițializare cu parametru pentru toate cele patr
 #### 7 ✅) tag de git: de exemplu v0.1  
 #### 8 ✅) serviciu de integrare continuă (CI) cu toate bifele; exemplu: GitHub Actions  
 
-## Milestone 2   
-#### 1 ✅) separarea codului din clase în .h (sau .hpp) și .cpp   
-#### 2 ✅) moșteniri:   
-   ####a ✅) minim o clasă de bază și 3 clase derivate din aceeași ierarhie   
-    Clasă de bază: WorkStation   
-    Clase derivate:   
-    OrderStation  
-    GrillStation  
-    BuildStation  
-    ServeStation   
-    ##### b ✅) ierarhia trebuie să fie cu bază proprie, nu derivată dintr-o clasă predefinită   
-    WorkStation nu derivă din clase predefinite (STL / SFML)  
-    ##### c✅) funcții virtuale (pure) apelate prin pointeri de bază din clasa care conține atributul de tip pointer de bază  
-      `std::vector<std::unique_ptr<WorkStation>> stations;` in clasa `Restaurant`  
-    ##### d) minim o funcție virtuală va fi specifică temei (i.e. nu simple citiri/afișări sau preluate din biblioteci i.e. draw/update/render)  
-     `processAction([[maybe_unused]]ActionType action,
-                           [[maybe_unused]]Ingredient* ingredient,
-                           Order& order,
-                           Player& player)`  
-    #### e ✅) constructori virtuali (clone): sunt necesari, dar nu se consideră funcții specifice temei  
-    Am adaugat clasei `Workstation` constructor virtual `clone`.  
-    #### f ✅) afișare virtuală, interfață non-virtuală  
-    #### d ✅) apelarea constructorului din clasa de bază din constructori din derivate  
-    Toate clasele derivate apelează explicit constructorul `WorkStation`.  
-    #### f ✅) clasă cu atribut de tip pointer la o clasă de bază cu derivate; aici apelați funcțiile virtuale prin pointer de bază, eventual prin interfața non-virtuală din bază  
-    Am adaugat `void print(std::ostream& os)` si `virtual void printImpl(std::ostream& os)`  
-    #### g ✅) suprascris cc/op= pentru copieri/atribuiri corecte, copy and swap  
-    #### f ✅) dynamic_cast/std::dynamic_pointer_cast pentru downcast cu sens  
-    In 'Restaurant' am adaugat functia 'void Restaurant::switchHUD(std::size_t index)'  
-    #### e ✅)smart pointers (recomandat, opțional)  
-####3)excepții  
-    #### a ✅) ierarhie proprie cu baza std::exception sau derivată din std::exception; minim 3 clase pentru erori specifice distincte  
-    `class GameException : public std::runtime_error`  
-     Clase derivate:  
-     `StationException`  
-     `ActionException`  
-     `ConfigException`  
-     Fiecare clasă derivată adaugă un prefix specific mesajului de eroare, indicând clar categoria problemei.  
-    #### b ✅)clasele de excepții trebuie să trateze categorii de erori distincte (exemplu de erori echivalente: citire fișiere cu diverse extensii)  
-    #### c ✅)utilizare cu sens: de exemplu, throw în constructor (sau funcție care întoarce un obiect), try/catch în main  
-####4✅)funcții și atribute static  
-    Am adaugat clasa 'GameStats' care contine functii si atribute static  
-####5✅)STL  
-####6✅)cât mai multe const  
-####7✅)funcții de nivel înalt, de eliminat cât mai mulți getters/setters/funcții low-level  
-####8✅)minim 75-80% din codul propriu să fie C++  
-####9✅)la sfârșit: commit separat cu adăugarea unei noi clase derivate fără a modifica restul codului, pe lângă cele 3 derivate deja adăugate din aceeași ierarhie  
-noua derivată nu poate fi una existentă care a fost ștearsă și adăugată din nou  
-noua derivată va fi integrată în codul existent (adică va fi folosită, nu adăugată doar ca să fie)  
-    Am adaugat si implementat intr-un nou commit clasa derivata `Drinkstation`  
- ####10✅)tag de git pe commit cu toate bifele: de exemplu v0.2  
+## Milestone 2
+
+1 ✅) separarea codului din clase în .h (sau .hpp) și .cpp
+
+2 ✅) moșteniri:
+a ✅) minim o clasă de bază și 3 clase derivate din aceeași ierarhie
+Clasă de bază: WorkStation
+Clase derivate:
+OrderStation
+GrillStation
+BuildStation
+ServeStation
+
+b ✅) ierarhia trebuie să fie cu bază proprie, nu derivată dintr-o clasă predefinită
+WorkStation nu derivă din clase predefinite (STL / SFML)
+
+c ✅) funcții virtuale (pure) apelate prin pointeri de bază din clasa care conține atributul de tip pointer de bază
+std::vector<std::unique_ptr<WorkStation>> stations; în clasa Restaurant
+
+d ✅) minim o funcție virtuală va fi specifică temei
+processAction([[maybe_unused]] ActionType action,
+              [[maybe_unused]] Ingredient* ingredient,
+              Order& order,
+              Player& player)
+
+e ✅) constructori virtuali (clone)
+Am adăugat clasei WorkStation constructor virtual clone
+
+f ✅) afișare virtuală, interfață non-virtuală
+Am adăugat metodele print(std::ostream& os) și virtual printImpl(std::ostream& os)
+
+g ✅) apelarea constructorului din clasa de bază din constructori din derivate
+Toate clasele derivate apelează explicit constructorul WorkStation
+
+h ✅) clasă cu atribut de tip pointer la o clasă de bază cu derivate; apelare polimorfică
+Funcțiile virtuale sunt apelate prin pointer de bază, inclusiv prin interfața non-virtuală din bază
+
+i ✅) suprascris cc / operator= pentru copieri și atribuiri corecte, folosind copy and swap
+
+j ✅) dynamic_cast / std::dynamic_pointer_cast pentru downcast cu sens
+În clasa Restaurant am adăugat funcția void Restaurant::switchHUD(std::size_t index)
+
+k ✅) smart pointers
+Utilizare std::unique_ptr
+
+3 ✅) excepții
+a ✅) ierarhie proprie cu bază std::exception sau derivată din std::exception
+class GameException : public std::runtime_error
+Clase derivate:
+StationException
+ActionException
+ConfigException
+Fiecare clasă derivată adaugă un prefix specific mesajului de eroare
+
+b ✅) clasele de excepții tratează categorii distincte de erori
+StationException – erori ale stațiilor
+ActionException – acțiuni invalide
+ConfigException – erori de configurare
+
+c ✅) utilizare cu sens
+throw în constructori și funcții critice
+try / catch în main
+
+4 ✅) funcții și atribute static
+Am adăugat clasa GameStats care conține funcții și atribute static
+
+5 ✅) STL
+Utilizare structuri STL (vector, map, optional etc.)
+
+6 ✅) cât mai multe const
+Metodele care nu modifică starea sunt marcate const
+
+7 ✅) funcții de nivel înalt
+Eliminare getters / setters inutile
+Logică exprimată prin metode semantice
+
+8 ✅) minim 75–80% din codul propriu este C++
+
+9 ✅) extensibilitate – clasă derivată nouă
+Am adăugat și integrat clasa derivată DrinkStation
+Clasa a fost implementată într-un commit separat
+
+10 ✅) tag de git
+Tag aplicat pe commitul final: v0.2
