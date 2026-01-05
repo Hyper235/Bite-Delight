@@ -66,7 +66,7 @@ Am implementat constructori de inițializare cu parametru pentru toate cele patr
 ## Milestone 2   
 #### 1 ✅) separarea codului din clase în .h (sau .hpp) și .cpp   
 #### 2 ✅) moșteniri:   
-   #####a ✅) minim o clasă de bază și 3 clase derivate din aceeași ierarhie   
+   #### a ✅) minim o clasă de bază și 3 clase derivate din aceeași ierarhie   
     Clasă de bază: WorkStation   
     Clase derivate:   
     OrderStation  
@@ -82,27 +82,27 @@ Am implementat constructori de inițializare cu parametru pentru toate cele patr
                            [[maybe_unused]]Ingredient* ingredient,
                            Order& order,
                            Player& player)`  
-    ##### e ✅) constructori virtuali (clone): sunt necesari, dar nu se consideră funcții specifice temei  
+    #### e ✅) constructori virtuali (clone): sunt necesari, dar nu se consideră funcții specifice temei  
     Am adaugat clasei `Workstation` constructor virtual `clone`.  
-    ##### f ✅) afișare virtuală, interfață non-virtuală  
-    ##### d ✅) apelarea constructorului din clasa de bază din constructori din derivate  
+    #### f ✅) afișare virtuală, interfață non-virtuală  
+    #### d ✅) apelarea constructorului din clasa de bază din constructori din derivate  
     Toate clasele derivate apelează explicit constructorul `WorkStation`.  
-    ##### f ✅) clasă cu atribut de tip pointer la o clasă de bază cu derivate; aici apelați funcțiile virtuale prin pointer de bază, eventual prin interfața non-virtuală din bază  
+    #### f ✅) clasă cu atribut de tip pointer la o clasă de bază cu derivate; aici apelați funcțiile virtuale prin pointer de bază, eventual prin interfața non-virtuală din bază  
     Am adaugat `void print(std::ostream& os)` si `virtual void printImpl(std::ostream& os)`  
-    ##### g ✅) suprascris cc/op= pentru copieri/atribuiri corecte, copy and swap  
-    ##### f ✅) dynamic_cast/std::dynamic_pointer_cast pentru downcast cu sens  
+    #### g ✅) suprascris cc/op= pentru copieri/atribuiri corecte, copy and swap  
+    #### f ✅) dynamic_cast/std::dynamic_pointer_cast pentru downcast cu sens  
     In 'Restaurant' am adaugat functia 'void Restaurant::switchHUD(std::size_t index)'  
-    ##### e ✅)smart pointers (recomandat, opțional)  
+    #### e ✅)smart pointers (recomandat, opțional)  
 ####3)excepții  
-    ##### a ✅) ierarhie proprie cu baza std::exception sau derivată din std::exception; minim 3 clase pentru erori specifice distincte  
+    #### a ✅) ierarhie proprie cu baza std::exception sau derivată din std::exception; minim 3 clase pentru erori specifice distincte  
     `class GameException : public std::runtime_error`  
      Clase derivate:  
      `StationException`  
      `ActionException`  
      `ConfigException`  
      Fiecare clasă derivată adaugă un prefix specific mesajului de eroare, indicând clar categoria problemei.  
-    ##### b ✅)clasele de excepții trebuie să trateze categorii de erori distincte (exemplu de erori echivalente: citire fișiere cu diverse extensii)  
-    ##### c ✅)utilizare cu sens: de exemplu, throw în constructor (sau funcție care întoarce un obiect), try/catch în main  
+    #### b ✅)clasele de excepții trebuie să trateze categorii de erori distincte (exemplu de erori echivalente: citire fișiere cu diverse extensii)  
+    #### c ✅)utilizare cu sens: de exemplu, throw în constructor (sau funcție care întoarce un obiect), try/catch în main  
 ####4✅)funcții și atribute static  
     Am adaugat clasa 'GameStats' care contine functii si atribute static  
 ####5✅)STL  
