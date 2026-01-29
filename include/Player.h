@@ -21,17 +21,14 @@ public:
   // getters
   const std::string &getName() const { return name; }
   float getBalance() const { return balance; }
-  std::size_t getCurrentStation() const { return currentStation; }
   unsigned int getDays() const { return days; }
   // setter
   void setBalance(float b) { balance = b; }
   void setName(const std::string &n) { name = n; }
-  void SetCurrentStation(std::size_t index) { currentStation = index; }
   void setDays(unsigned int d) { days = d; }
   // <<
   friend std::ostream &operator<<(std::ostream &os, const Player &p);
   // altele
-  void placeOrder(const Order &order);
   void finishOrder();
 };
 #endif // OOP_PLAYER_H

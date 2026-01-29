@@ -82,5 +82,8 @@ int main() {
   runObserverTest();
   runStrategyTest();
 
+  Game game;
+  game.run();
+
   return 0;
 }

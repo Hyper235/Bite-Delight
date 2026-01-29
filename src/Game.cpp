@@ -241,14 +241,6 @@ void Game::renderCreatePlayer() {
   startGameButton.draw(window);
   window.display();
 }
-void Game::handleCreatePlayerEvents() {
-  while (auto event = window.pollEvent()) {
-    if (event->is<sf::Event::Closed>()) {
-      window.close();
-      state = GameState::Exit;
-    }
-  }
-}
 
 void Game::runGameStep() {
   window.clear(sf::Color::Black);

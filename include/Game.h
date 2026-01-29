@@ -52,9 +52,7 @@ private:
           std::vector<Customer> m_customers;
   
           StatsUpdater m_statsUpdater;
-  
-      
-  
-          void handleCreatePlayerEvents();};
+
+};
 
 #endif

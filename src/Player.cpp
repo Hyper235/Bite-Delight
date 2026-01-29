@@ -36,10 +36,6 @@ std::ostream &operator<<(std::ostream &os, const Player &p) {
   }
   return os;
 }
-void Player::placeOrder(const Order &o) {
-  orders.push(o);
-  GameStats::registerNewOrder(o);
-}
 
 void Player::finishOrder() {
   if (orders.empty()) {
