@@ -3,68 +3,76 @@
 //
 #include "../include/Player.h"
 #include "../include/Order.h"
+#include "GameStats.h"
 #include <../include/Exceptions.h>
 #include <queue>
-#include "GameStats.h"
-//implicit
-Player::Player():name("NULL"), balance(0.0f),days(0){}
-//parametric
-Player::Player(const std::string &n, float balance): name(n), balance(balance),days(0) {
-    if (name.empty()) {
-        throw ConfigException("Player's name field can't be empty");
-    }
+// implicit
+Player::Player() : name("NULL"), balance(0.0f), days(0) {}
+// parametric
+Player::Player(const std::string &n, float balance)
+    : name(n), balance(balance), days(0) {
+  if (name.empty()) {
+    throw ConfigException("Player's name field can't be empty");
+  }
 }
 // <<
-std::ostream& operator<<(std::ostream& os, const Player& p) {
-    os << "Player: " << p.getName() << "\n";
-    os<< "Days: "<<p.days<<"\n";
-    os << "Balance: " << p.getBalance() << " RON\n";
-    os << "Pending Orders (" << p.orders.size() << "):\n";
+std::ostream &operator<<(std::ostream &os, const Player &p) {
+  os << "Player: " << p.getName() << "\n";
+  os << "Days: " << p.days << "\n";
+  os << "Balance: " << p.getBalance() << " RON\n";
+  os << "Pending Orders (" << p.orders.size() << "):\n";
 
-    std::queue<Order> q = p.orders;
+  std::queue<Order> q = p.orders;
 
-    if (q.empty()) {
-        os << "    [No pending orders]\n";
-    } else {
-        int count = 1;
-        while (!q.empty()) {
-            os << "    --- Order #" << count++ << " ---\n";
-            os << q.front();
-            q.pop();
-        }
+  if (q.empty()) {
+    os << "    [No pending orders]\n";
+  } else {
+    int count = 1;
+    while (!q.empty()) {
+      os << "    --- Order #" << count++ << " ---\n";
+      os << q.front();
+      q.pop();
     }
-    return os;
+  }
+  return os;
 }
-void Player::placeOrder(const Order& o){orders.push(o);GameStats::registerNewOrder(o);}
+void Player::placeOrder(const Order &o) {
+  orders.push(o);
+  GameStats::registerNewOrder(o);
+}
 
 void Player::finishOrder() {
-    if (orders.empty()) {
-        throw GameException("No orders to finish");
-    }
-    Order& currentOrder = orders.front();
-    float basePrice= currentOrder.calc();
-    auto now = std::chrono::system_clock::now();
-    auto timestamp = currentOrder.getTimestamp();
-    auto maxDuration = currentOrder.getMaxDuration();
-    auto elapsed = std::chrono::duration_cast<std::chrono::seconds>(now - timestamp);
-    float timeRatio = static_cast<float>(elapsed.count()) / static_cast<float>(maxDuration.count());
-    float tipAmount = 0.0f;
+  if (orders.empty()) {
+    throw GameException("No orders to finish");
+  }
+  Order &currentOrder = orders.front();
+  float basePrice = currentOrder.calc();
+  auto now = std::chrono::system_clock::now();
+  auto timestamp = currentOrder.getTimestamp();
+  auto maxDuration = currentOrder.getMaxDuration();
+  auto elapsed =
+      std::chrono::duration_cast<std::chrono::seconds>(now - timestamp);
+  float timeRatio = static_cast<float>(elapsed.count()) /
+                    static_cast<float>(maxDuration.count());
+  float tipAmount = 0.0f;
 
-    if (timeRatio < 0.3f) {
-        tipAmount = basePrice * 0.20f;
-    } else if (timeRatio < 0.8f) {
-        tipAmount = basePrice * 0.05f;
-    } else {
-        tipAmount = 0.0f;
-    }
-    if (currentOrder.hasExpired()) {
-        basePrice*=0.8f;
-        GameStats::registerOrderExpired(currentOrder);
-    }
-    currentOrder.setTips(tipAmount);
+  if (timeRatio < 0.3f) {
+    tipAmount = basePrice * 0.20f;
+  } else if (timeRatio < 0.8f) {
+    tipAmount = basePrice * 0.05f;
+  } else {
+    tipAmount = 0.0f;
+  }
+  if (currentOrder.hasExpired()) {
+    basePrice *= 0.8f;
+    GameStats::registerOrderExpired(currentOrder);
+  }
+  currentOrder.setTips(tipAmount);
 
-    this->balance+=tipAmount +basePrice;
-    std::cout << "Player " << getName() << " finished order ID " << currentOrder.getID()<< " in " << elapsed.count() << " seconds, with TIPS: " << tipAmount << "( Price "<< basePrice<<" )\n" ;
-    orders.pop();
+  this->balance += tipAmount + basePrice;
+  std::cout << "Player " << getName() << " finished order ID "
+            << currentOrder.getID() << " in " << elapsed.count()
+            << " seconds, with TIPS: " << tipAmount << "( Price " << basePrice
+            << " )\n";
+  orders.pop();
 }
-

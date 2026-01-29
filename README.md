@@ -62,3 +62,106 @@ Am implementat constructori de inițializare cu parametru pentru toate cele patr
 #### 6 ✅) minim 50-55% din codul propriu să fie C++, .gitattributes configurat corect  
 #### 7 ✅) tag de git: de exemplu v0.1  
 #### 8 ✅) serviciu de integrare continuă (CI) cu toate bifele; exemplu: GitHub Actions  
+
+## Milestone 2
+
+1 ✅) separarea codului din clase în .h (sau .hpp) și .cpp  
+
+2 ✅) moșteniri:  
+a ✅) minim o clasă de bază și 3 clase derivate din aceeași ierarhie  
+Clasă de bază: WorkStation  
+Clase derivate:  
+OrderStation  
+GrillStation  
+BuildStation  
+ServeStation  
+
+b ✅) ierarhia trebuie să fie cu bază proprie, nu derivată dintr-o clasă predefinită  
+WorkStation nu derivă din clase predefinite (STL / SFML)  
+
+c ✅) funcții virtuale (pure) apelate prin pointeri de bază din clasa care conține atributul de tip pointer de bază  
+std::vector<std::unique_ptr<WorkStation>> stations; în clasa Restaurant  
+
+d ✅) minim o funcție virtuală va fi specifică temei  
+processAction([[maybe_unused]] ActionType action,
+              [[maybe_unused]] Ingredient* ingredient,
+              Order& order,
+              Player& player)  
+
+e ✅) constructori virtuali (clone)  
+Am adăugat clasei WorkStation constructor virtual clone  
+
+f ✅) afișare virtuală, interfață non-virtuală  
+Am adăugat metodele print(std::ostream& os) și virtual printImpl(std::ostream& os)  
+
+g ✅) apelarea constructorului din clasa de bază din constructori din derivate  
+Toate clasele derivate apelează explicit constructorul WorkStation  
+
+h ✅) clasă cu atribut de tip pointer la o clasă de bază cu derivate; apelare polimorfică  
+Funcțiile virtuale sunt apelate prin pointer de bază, inclusiv prin interfața non-virtuală din bază  
+
+i ✅) suprascris cc / operator= pentru copieri și atribuiri corecte, folosind copy and swap  
+
+j ✅) dynamic_cast / std::dynamic_pointer_cast pentru downcast cu sens  
+În clasa Restaurant am adăugat funcția void Restaurant::switchHUD(std::size_t index)  
+
+k ✅) smart pointers  
+Utilizare std::unique_ptr  
+
+3 ✅) excepții  
+a ✅) ierarhie proprie cu bază std::exception sau derivată din std::exception  
+class GameException : public std::runtime_error  
+Clase derivate:  
+StationException  
+ActionException  
+ConfigException  
+Fiecare clasă derivată adaugă un prefix specific mesajului de eroare  
+
+b ✅) clasele de excepții tratează categorii distincte de erori  
+StationException – erori ale stațiilor  
+ActionException – acțiuni invalide  
+ConfigException – erori de configurare  
+
+c ✅) utilizare cu sens  
+throw în constructori și funcții critice  
+try / catch în main  
+
+4 ✅) funcții și atribute static  
+Am adăugat clasa GameStats care conține funcții și atribute static  
+
+5 ✅) STL  
+Utilizare structuri STL (vector, map, optional etc.)  
+
+6 ✅) cât mai multe const  
+Metodele care nu modifică starea sunt marcate const  
+
+7 ✅) funcții de nivel înalt  
+Eliminare getters / setters inutile  
+Logică exprimată prin metode semantice  
+
+8 ✅) minim 75–80% din codul propriu este C++  
+
+9 ✅) extensibilitate – clasă derivată nouă  
+Am adăugat și integrat clasa derivată DrinkStation  
+Clasa a fost implementată într-un commit separat  
+
+10 ✅) tag de git  
+Tag aplicat pe commitul final: v0.2  
+
+---
+## Milestone 3
+
+#### 1 ✅) Clasă și funcție șablon
+Am adăugat o clasă șablon `Inventory<T>` pentru a gestiona colecții generice de obiecte. Aceasta este însoțită de o funcție șablon liberă (friend `operator<<`) pentru a afișa conținutul oricărui tip de inventar, demonstrând flexibilitatea template-urilor.
+
+#### 2 ✅) Design Patterns
+Am implementat 3 design patterns noi pentru a îmbunătăți arhitectura proiectului:
+   **a) Observer Pattern:** A fost implementat pentru a decupla `Order` (Subiectul) de clasele care depind de starea sa, precum `Customer` și `GameStats` (Observatorii). Când o comandă este finalizată sau expiră, observatorii sunt notificați și își actualizează starea (ex: `Customer` devine `HAPPY`/`ANGRY`, `GameStats` actualizează rating-ul).
+   
+   **b) Static Factory Method Pattern:** A fost implementat în clasa `Customer` pentru a centraliza logica de creare a obiectelor. Constructorii relevanți au fost făcuți `privați`, iar acum crearea se face exclusiv prin `Customer::create(...)`. Acest lucru ascunde complexitatea generării unui client și permite extinderea ușoară pentru noi tipuri de clienți.
+   
+   **c) Strategy Pattern:** A fost implementat pentru a refactoriza calculul prețului în `Order::calc()`. Logica `if/else if` a fost înlocuită cu o familie de algoritmi de pricing (`EasyPricingStrategy`, `MediumPricingStrategy`, etc.), "injectați" în `Order` la creare. Acest lucru face sistemul de pricing mai flexibil și mai ușor de extins.
+
+#### 3 ✅) Funcționalități noi și Testare
+- **Sistem de Rating:** Am extins `GameStats` pentru a include un rating al restaurantului care crește sau scade în timp real, ca reacție la starea comenzilor, prin intermediul pattern-ului Observer.
+- **Suită de Test:** Am creat în `main.cpp` o funcție `runObserverTest()` care demonstrează clar și izolat funcționalitatea noilor pattern-uri, testând atât cazul de succes (comandă finalizată), cât și cel de eșec (comandă expirată).

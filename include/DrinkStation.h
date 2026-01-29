@@ -5,29 +5,27 @@
 #ifndef OOP_DRINKSTATION_H
 #define OOP_DRINKSTATION_H
 
-#include <memory>
-#include "WorkStation.h"
-#include "Order.h"
-#include "Player.h"
 #include "ActionType.h"
 #include "Ingredient.h"
+#include "Order.h"
+#include "Player.h"
+#include "WorkStation.h"
+#include <memory>
 
 class DrinkStation : public WorkStation {
 public:
-    DrinkStation();
+  DrinkStation();
 
-    void processAction(ActionType action,
-                       Ingredient* ingredient,
-                       Order& order,
-                       Player& player) override;
+  void processAction(ActionType action, Ingredient *ingredient, Order &order,
+                     Player &player) override;
 
-    [[nodiscard]] std::unique_ptr<WorkStation> clone() const override;
+  [[nodiscard]] std::unique_ptr<WorkStation> clone() const override;
 
 protected:
-    void printImpl(std::ostream& os) const override;
+  void printImpl(std::ostream &os) const override;
 
 private:
-    bool hasPreparedDrink{false};
+  bool hasPreparedDrink{false};
 };
 
-#endif //OOP_DRINKSTATION_H
+#endif // OOP_DRINKSTATION_H

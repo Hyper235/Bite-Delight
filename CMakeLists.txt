@@ -70,11 +70,12 @@ add_executable(${MAIN_EXECUTABLE_NAME}
         src/Restaurant.cpp
         src/Game.cpp
         src/Menu.cpp
-    main.cpp
         src/GameStats.cpp
         src/DrinkStation.cpp
+        src/SaveManager.cpp
+        src/StatsUpdater.cpp
 )
-
+file(COPY saves DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 file(COPY fonts DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 file(COPY date/img DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/date)
 target_include_directories(${MAIN_EXECUTABLE_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/include )

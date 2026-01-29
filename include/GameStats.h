@@ -5,8 +5,8 @@
 #ifndef OOP_GAMESTATS_H
 #define OOP_GAMESTATS_H
 
-#include <vector>
 #include "Order.h"
+#include <vector>
 
 class GameStats {
 private:
@@ -17,6 +17,8 @@ private:
     inline static float totalRevenue      = 0.0f;
     inline static float highestOrderValue = 0.0f;
 
+    inline static float rating = 3.0f;
+
     inline static std::vector<float> servedValues;
 
 public:
@@ -25,7 +27,10 @@ public:
     static void registerOrderServed(const Order& order);
     static void registerOrderExpired(const Order& order);
 
+    static void increaseRating();
+    static void decreaseRating();
+
     static void printStats();
 };
 
-#endif //OOP_GAMESTATS_H
+#endif // OOP_GAMESTATS_H

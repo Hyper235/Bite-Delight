@@ -1,118 +1,86 @@
-#include "Game.h"
-#include "Player.h"
 #include "Customer.h"
+#include "Exceptions.h"
+#include "Game.h"
+#include "GameStats.h"
+#include "Ingredient.h"
+#include "Inventory.h"
+#include "Menu.h"
+#include "Player.h"
+#include "Restaurant.h"
+#include "SaveManager.h"
+#include "StatsUpdater.h"
+#include <ctime>
 #include <fstream>
 #include <iostream>
 #include <random>
-#include "Restaurant.h"
 #include <thread>
-#include "Exceptions.h"
-#include "GameStats.h"
-#include "Menu.h"
-#define SAVEGAME "saves/player.txt"
+
+void runObserverTest() {
+  std::cout << "\n--- EXECUTARE TEST OBSERVER ---\n\n";
+
+  StatsUpdater statsUpdater;
+
+  {
+    std::cout << "--- TEST 1: CLIENT FERICIT ---\n";
+    Customer customer = Customer::create(CustomerType::REGULAR, Menu::getMenu());
+    customer.getOrder().addObserver(&statsUpdater);
+
+    std::cout << "--- STARE INITIALA ---\n";
+    GameStats::printStats();
+    std::cout << customer << "\n\n";
+
+    std::cout << "--- SIMULARE: Finalizare comanda... ---\n";
+    customer.getOrder().forceComplete();
+
+    std::cout << "\n--- STARE FINALA (TEST 1) ---\n";
+    GameStats::printStats();
+    std::cout << customer << "\n\n";
+  }
+
+  {
+    std::cout << "--- TEST 2: CLIENT SUPARAT ---\n";
+    Customer customer2 =
+        Customer::create(CustomerType::REGULAR, Menu::getMenu());
+    customer2.getOrder().addObserver(&statsUpdater);
+
+    std::cout << "--- STARE INITIALA ---\n";
+    GameStats::printStats();
+    std::cout << customer2 << "\n\n";
+
+    std::cout << "--- SIMULARE: Expirare comanda... ---\n";
+    customer2.getOrder().forceExpire();
+
+    std::cout << "\n--- STARE FINALA (TEST 2) ---\n";
+    GameStats::printStats();
+    std::cout << customer2 << "\n\n";
+  }
+
+  std::cout << "--- TEST OBSERVER FINALIZAT ---\n";
+}
+
+void runStrategyTest() {
+  std::cout << "\n--- EXECUTARE TEST STRATEGY ---\n\n";
+
+  FoodItem item(1, {}, "Test Item", 10.0f, FoodType::FOOD);
+  std::vector<FoodItem> items = {item};
+
+  Order easyOrder(1, 0, Dif::EASY, 100, items);
+  Order mediumOrder(2, 0, Dif::MEDIUM, 100, items);
+  Order hardOrder(3, 0, Dif::HARD, 100, items);
+
+  std::cout << "Pret de baza: " << item.getPrice() << " RON\n";
+  std::cout << "Pret final comanda EASY: " << easyOrder.calc() << " RON\n";
+  std::cout << "Pret final comanda MEDIUM: " << mediumOrder.calc() << " RON\n";
+  std::cout << "Pret final comanda HARD: " << hardOrder.calc() << " RON\n";
+
+  std::cout << "\n--- TEST STRATEGY FINALIZAT ---\n";
+}
+
 int main() {
-    try {
-        std::srand(std::time(nullptr));
-        Player player;
-        std::ifstream in("../saves/player.txt");
+  srand(time(nullptr));
 
-        if (in) {
-            std::string playerName;
-            std::getline(in, playerName);
-            player.setName(playerName);
-            float balance;
-            in>>balance;
-            player.setBalance(balance);
-            unsigned int days;
-            in>>days;
-            player.setDays(days);
-        } else {
-            std::cerr << "Nu pot citi saves/player.txt – folosesc nume default.\n";
-        }
-        std::cout<<player;
-        Restaurant r;
+  runObserverTest();
+  runStrategyTest();
 
-        auto menu = Menu::getMenu();
-        Order ord;
-        ord.setDifficulty(Dif::MEDIUM);
-        ord.setMaxDuration(3 * 30);
-        ord.addItemToOrder(menu[0]);
-        ord.addItemToOrder(menu[0]);
-        ord.addItemToOrder(menu[5]);
-        Customer c{"Gigel", ord};
-        player.placeOrder(ord);
-        std::cout << "=== Customer & Order (scenariu joc) ===\n";
-        std::cout << c << "\n";
-
-        const std::size_t BUILD_INDEX = 2;
-        const std::size_t SERVE_INDEX = 3;
-        Restaurant restaurant;
-        player.SetCurrentStation(2);
-        restaurant.switchHUD(BUILD_INDEX);
-        std::cout << "\n=== Player ajunge la ServeStation === INDEX: "<<player.getCurrentStation()<<"\n";
-        Ingredient i1 = Ingredient::BunBottom;
-        Ingredient i2 = Ingredient::Patty;
-        Ingredient i3 = Ingredient::Cheese;
-        Ingredient i4 = Ingredient::Sauce;
-        Ingredient i5 = Ingredient::BunTop;
-
-        restaurant.handlePlayerAtStation(BUILD_INDEX, ActionType::AddIngredient, &i1, ord, player);
-        std::this_thread::sleep_for(std::chrono::seconds(1LL));
-        restaurant.handlePlayerAtStation(BUILD_INDEX, ActionType::AddIngredient, &i2, ord, player);
-        std::this_thread::sleep_for(std::chrono::seconds(1LL));
-        restaurant.handlePlayerAtStation(BUILD_INDEX, ActionType::AddIngredient, &i3, ord, player);
-        std::this_thread::sleep_for(std::chrono::seconds(1LL));
-        restaurant.handlePlayerAtStation(BUILD_INDEX, ActionType::AddIngredient, &i4, ord, player);
-        std::this_thread::sleep_for(std::chrono::seconds(1LL));
-        restaurant.handlePlayerAtStation(BUILD_INDEX, ActionType::AddIngredient, &i5, ord, player);
-        std::this_thread::sleep_for(std::chrono::seconds(1LL));
-        restaurant.handlePlayerAtStation(BUILD_INDEX, ActionType::FinishItem, nullptr, ord, player);
-        std::this_thread::sleep_for(std::chrono::seconds(1LL));
-        restaurant.handlePlayerAtStation(BUILD_INDEX, ActionType::AddIngredient, &i1, ord, player);
-        std::this_thread::sleep_for(std::chrono::seconds(1LL));
-        restaurant.handlePlayerAtStation(BUILD_INDEX, ActionType::AddIngredient, &i2, ord, player);
-        std::this_thread::sleep_for(std::chrono::seconds(1LL));
-        restaurant.handlePlayerAtStation(BUILD_INDEX, ActionType::AddIngredient, &i3, ord, player);
-        std::this_thread::sleep_for(std::chrono::seconds(1LL));
-        restaurant.handlePlayerAtStation(BUILD_INDEX, ActionType::AddIngredient, &i4, ord, player);
-        std::this_thread::sleep_for(std::chrono::seconds(1LL));
-        restaurant.handlePlayerAtStation(BUILD_INDEX, ActionType::AddIngredient, &i5, ord, player);
-        std::this_thread::sleep_for(std::chrono::seconds(1LL));
-        restaurant.handlePlayerAtStation(BUILD_INDEX, ActionType::FinishItem, nullptr, ord, player);
-        std::this_thread::sleep_for(std::chrono::seconds(1LL));
-
-        //drink
-        restaurant.handlePlayerAtStation(4,
-                                 ActionType::PrepareDrink,
-                                 nullptr,
-                                 ord,
-                                 player);
-        restaurant.handlePlayerAtStation(4,
-                                 ActionType::ServeDrink,
-                                 nullptr,
-                                 ord,
-                                 player);
-
-        std::cout << "\nDupa BuildStation, status order complete? "
-                  << std::boolalpha << ord.isComplete() << "\n";
-        std::this_thread::sleep_for(std::chrono::seconds(1LL));
-        player.SetCurrentStation(3);
-        std::cout << "\n=== Player ajunge la ServeStation === INDEX: "<<player.getCurrentStation()<<"\n";
-        restaurant.switchHUD(SERVE_INDEX);
-        std::this_thread::sleep_for(std::chrono::seconds(1LL));
-        restaurant.handlePlayerAtStation(SERVE_INDEX, ActionType::ServeOrder, nullptr, ord, player);
-        std::this_thread::sleep_for(std::chrono::seconds(1LL));
-        std::cout << "\nDupa ServeStation, status order complete? "
-                  << std::boolalpha << ord.isComplete() << "\n";
-
-        std::cout << "\n=== Sfarsit scenariu de test ===\n";
-        Game game;
-        GameStats::printStats();
-        game.run();
-    }
-    catch (const GameException& ex) {
-        std::cerr << "[Game error] " << ex.what() << "\n";
-        return 1;
-    }
-    return 0;
-    }
+  return 0;
+}

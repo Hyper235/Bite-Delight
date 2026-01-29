@@ -6,16 +6,16 @@
 #define OOP_ACTIONTYPE_H
 
 enum class ActionType {
-    None,
-    PutBurgerOnGrill,
-    FlipBurger,
-    TakeFromGrill,
-    PutFriesIntoFryer,
-    TakeFriesFromFryer,
-    AddIngredient,
-    ServeOrder,
-    FinishItem,
-    PrepareDrink,
-    ServeDrink
+  None,
+  PutBurgerOnGrill,
+  FlipBurger,
+  TakeFromGrill,
+  PutFriesIntoFryer,
+  TakeFriesFromFryer,
+  AddIngredient,
+  ServeOrder,
+  FinishItem,
+  PrepareDrink,
+  ServeDrink
 };
-#endif //OOP_ACTIONTYPE_H
+#endif // OOP_ACTIONTYPE_H

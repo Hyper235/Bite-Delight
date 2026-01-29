@@ -4,22 +4,21 @@
 
 #ifndef OOP_SERVESTATION_H
 #define OOP_SERVESTATION_H
-#include <memory>
+#include "ActionType.h"
+#include "Ingredient.h"
 #include "Order.h"
 #include "Player.h"
 #include "WorkStation.h"
-#include "ActionType.h"
-#include "Ingredient.h"
+#include <memory>
 
-class ServeStation: public WorkStation {
+class ServeStation : public WorkStation {
 public:
-    ServeStation();
-    void processAction(ActionType action,
-                           Ingredient* ingredient,
-                           Order& order,
-                           Player& player) override;
-    [[nodiscard]]std::unique_ptr<WorkStation> clone() const override;
+  ServeStation();
+  void processAction(ActionType action, Ingredient *ingredient, Order &order,
+                     Player &player) override;
+  [[nodiscard]] std::unique_ptr<WorkStation> clone() const override;
+
 protected:
-    void printImpl(std::ostream& os) const override;
+  void printImpl(std::ostream &os) const override;
 };
-#endif //OOP_SERVESTATION_H
+#endif // OOP_SERVESTATION_H

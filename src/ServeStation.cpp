@@ -2,37 +2,34 @@
 // Created by Catalin on 12/3/2025.
 //
 #include "ServeStation.h"
-#include <iostream>
+#include "../include/Exceptions.h"
 #include "../include/Order.h"
 #include "../include/Player.h"
-#include "../include/Exceptions.h"
-#include<GameStats.h>
+#include <GameStats.h>
+#include <iostream>
 ServeStation::ServeStation() : WorkStation("ServeStation") {}
-void ServeStation::printImpl(std::ostream& os) const {
-    os << "ServeStation (servire comenzi)";
+void ServeStation::printImpl(std::ostream &os) const {
+  os << "ServeStation (servire comenzi)";
 }
-void ServeStation::processAction([[maybe_unused]]ActionType action,
-                           [[maybe_unused]]Ingredient* ingredient,
-                           Order& order,
-                           Player& player){
-    if (action != ActionType::ServeOrder) {
-        throw ActionException("ServeStation accepta doar actiunea ServeOrder");
-    }
+void ServeStation::processAction([[maybe_unused]] ActionType action,
+                                 [[maybe_unused]] Ingredient *ingredient,
+                                 Order &order, Player &player) {
+  if (action != ActionType::ServeOrder) {
+    throw ActionException("ServeStation accepta doar actiunea ServeOrder");
+  }
 
-    // Verificam daca comanda este completa
-    if (!order.isComplete()) {
-        throw ActionException("Comanda nu este completa, nu poate fi servita!");
+  // Verificam daca comanda este completa
+  if (!order.isComplete()) {
+    throw ActionException("Comanda nu este completa, nu poate fi servita!");
+  }
+  std::cout << "[ServeStation] Player " << player.getName()
+            << " serveste comanda #" << order.getID() << "\n";
 
-    }
-    std::cout<<"[ServeStation] Player "<<player.getName()<<" serveste comanda #"<<order.getID()<<"\n";
-
-    std::cout << "[ServeStation] Comanda a fost servita cu succes!\n";
-    GameStats::registerOrderServed(order);
-    player.finishOrder();
-
-
+  std::cout << "[ServeStation] Comanda a fost servita cu succes!\n";
+  GameStats::registerOrderServed(order);
+  player.finishOrder();
 }
 
 std::unique_ptr<WorkStation> ServeStation::clone() const {
-    return std::make_unique<ServeStation>(*this);
+  return std::make_unique<ServeStation>(*this);
 }

@@ -1,43 +1,39 @@
-//
-// Created by Catalin on 11/2/2025.
-//
-
 #ifndef OOP_CUSTOMER_H
 #define OOP_CUSTOMER_H
-#include <vector>
-#include <string>
-#include "Order.h"
 #include "FoodItem.h"
+#include "Observer.h"
+#include "Order.h"
+#include <string>
+#include <vector>
 
-class Customer {
+enum class CustomerMood { WAITING, HAPPY, ANGRY };
+enum class CustomerType { REGULAR, RUSH_HOUR };
+
+class Customer : public Observer {
 private:
-    std::string Name;
-    Order order;
-    static Order generateRandomOrder(const std::vector<FoodItem>& menu);
-    static std::string generateRandomName();
+  std::string Name;
+  Order order;
+  CustomerMood mood;
+  static Order generateRandomOrder(const std::vector<FoodItem> &menu);
+  static std::string generateRandomName();
+  std::string textureLocation;
+
+  explicit Customer(const std::vector<FoodItem> &m);
+  Customer(const std::string &n, const Order &o);
+
 public:
-    //implicit
-    Customer();
+  static Customer create(CustomerType type, const std::vector<FoodItem> &menu);
 
-    //parametric cu meniu
-    explicit Customer(const std::vector<FoodItem>& m);
+  Customer();
+  Customer(const Customer &alt);
 
-    //parametric cu toti parametrii
-    Customer(const std::string& n, const Order& o);
+  void update(Order *order) override;
 
-    //copiere
-    Customer(const Customer& alt);
+  friend std::ostream &operator<<(std::ostream &os, const Customer &c);
+  Customer &operator=(const Customer &other);
+  const std::string &getName() const { return Name; }
+  Order &getOrder() { return order; }
 
-    //<<
-    friend std::ostream& operator<<(std::ostream& os, const Customer& c);
-
-    //=
-    Customer& operator=(const Customer& other);
-
-    //getters
-    const std::string& getName() const {return Name;}
-
-    //destructor
-    ~Customer(){std::cout<<"\nDestructor call: CUSTOMER "<<Name<<"\n";}
+  ~Customer();
 };
-#endif //OOP_CUSTOMER_H
+#endif

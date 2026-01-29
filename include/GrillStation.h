@@ -4,19 +4,19 @@
 
 #ifndef OOP_GRILLSTATION_H
 #define OOP_GRILLSTATION_H
-#include <memory>
 #include "Order.h"
 #include "Player.h"
 #include "WorkStation.h"
-class GrillStation: public WorkStation {
+#include <memory>
+class GrillStation : public WorkStation {
 public:
-    GrillStation();
-    [[maybe_unused]]void processAction(ActionType action,
-                           Ingredient* ingredient,
-                           Order& order,
-                           Player& player) override;
-    [[maybe_unused]][[nodiscard]]std::unique_ptr<WorkStation> clone() const override;
+  GrillStation();
+  [[maybe_unused]] void processAction(ActionType action, Ingredient *ingredient,
+                                      Order &order, Player &player) override;
+  [[maybe_unused]] [[nodiscard]] std::unique_ptr<WorkStation>
+  clone() const override;
+
 protected:
-    [[maybe_unused]]void printImpl(std::ostream& os) const override;
+  [[maybe_unused]] void printImpl(std::ostream &os) const override;
 };
-#endif //OOP_GRILLSTATION_H
+#endif // OOP_GRILLSTATION_H
