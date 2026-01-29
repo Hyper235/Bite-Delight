@@ -2,11 +2,11 @@
 #include <iomanip>
 #include "../include/GameStats.h"
 
-
 void GameStats::registerNewOrder(const Order &order) {
   (void)order;
   totalOrders++;
 }
+
 void GameStats::registerOrderServed(const Order &order) {
   servedOrders++;
   totalRevenue += order.calc();

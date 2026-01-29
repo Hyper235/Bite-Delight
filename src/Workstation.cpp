@@ -1,6 +1,3 @@
-//
-// Created by Catalin on 12/3/2025.
-//
 #include "../include/WorkStation.h"
 
 void WorkStation::print(std::ostream &os) const { // interfață NON-virtuală

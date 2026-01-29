@@ -13,6 +13,10 @@ private:
 public:
   Restaurant();
   ~Restaurant() = default;
+  void handlePlayerAtStation(std::size_t index, ActionType action,
+                             Ingredient *ingredient, Order &order,
+                             Player &player) const;
+  void switchHUD(std::size_t index) const;
 
   Restaurant(const Restaurant &other);
   Restaurant &operator=(Restaurant other);

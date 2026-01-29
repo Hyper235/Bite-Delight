@@ -14,8 +14,6 @@ public:
   explicit Inventory(const std::string &inventoryName = "Generic Inventory")
       : name(inventoryName) {}
 
-  const std::vector<T> &getItems() const { return items; }
-
   const std::string &getName() const { return name; }
 
   size_t getItemCount() const { return items.size(); }

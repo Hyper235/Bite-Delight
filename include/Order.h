@@ -37,12 +37,15 @@ public:
   void setMaxDuration(unsigned int seconds) {
     maxDuration = std::chrono::seconds(seconds);
   }
+  [[nodiscard]] float getTips() const { return tips; }
   [[nodiscard]] unsigned int getID() const { return id; }
   std::chrono::system_clock::time_point getTimestamp() const {
     return timestamp;
   }
   std::chrono::seconds getMaxDuration() const { return maxDuration; }
+  const std::vector<FoodItem> &getItems() const { return items; }
   void addItemToOrder(const FoodItem &it);
+  void addTips(float t) { tips += t; }
   friend std::ostream &operator<<(std::ostream &os, const Order &o);
   [[nodiscard]] bool hasExpired() const;
   [[nodiscard]] float calc() const;
