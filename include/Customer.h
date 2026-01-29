@@ -34,6 +34,6 @@ public:
   const std::string &getName() const { return Name; }
   Order &getOrder() { return order; }
 
-  ~Customer();
+  ~Customer() override;
 };
 #endif

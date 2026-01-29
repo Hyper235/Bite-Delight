@@ -32,7 +32,7 @@ public:
   Order(const Order &other);
   Order &operator=(const Order &other);
 
-  void setTips(unsigned int t) { tips = t; }
+  void setTips(float t) { tips = t; }
   void setDifficulty(Dif d) { difficulty = d; }
   void setMaxDuration(unsigned int seconds) {
     maxDuration = std::chrono::seconds(seconds);

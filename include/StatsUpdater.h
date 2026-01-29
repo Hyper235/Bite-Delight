@@ -7,7 +7,7 @@
 
 class StatsUpdater : public Observer {
 public:
-  ~StatsUpdater();
+  ~StatsUpdater() override;
   void update(Order *order) override;
 };
 
